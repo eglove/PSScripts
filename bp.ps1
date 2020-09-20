@@ -42,7 +42,8 @@ $MyEmail = "hello@ethang.email"
 $GitUsername = "eglove"
 $PackageJson = '.\package.json'
 
-function WriteLintConfig {
+function WriteLintConfig
+{
     New-Item .stylelintrc -value '{
     "extends": "stylelint-config-standard"
 }'
@@ -52,13 +53,14 @@ function WriteLintConfig {
     ]
 }'
 
-    (Get-Content -path $PackageJson -Raw) -replace '"*.js": "eslint --cache --fix",','": "eslint --cache --fix",' | Set-Content $PackageJson
+    (Get-Content -path $PackageJson -Raw) -replace '"*.js": "eslint --cache --fix",', '": "eslint --cache --fix",' | Set-Content $PackageJson
 }
 
-function GHPages {
+function GHPages
+{
     yarn add gh-pages --dev
     $PackageName = '"name": "test",'
-    $PackageHomepage = '  "homepage": "http://eglove.github.io/'+$ProjectName+'",'
+    $PackageHomepage = '  "homepage": "http://eglove.github.io/' + $ProjectName + '",'
     $PackageScriptsStart = '"scripts": {'
     $PackagePreDeploy = '    "predeploy": "npm run build",'
     $PackagePostDeploy = '    "deploy": "gh-pages -d build",'
@@ -67,22 +69,23 @@ function GHPages {
     AppendFile $PackagePreDeploy $PackagePostDeploy $PackageJson;
 }
 
-function AppendFile($TextToAppendAt, $TextToAdd, $File) {
+function AppendFile($TextToAppendAt, $TextToAdd, $File)
+{
     $NewContent = Get-Content -Path $File |
-    ForEach-Object {
-        $_
-        if($_ -match $TextToAppendAt)
-        {
-            $TextToAdd
-        }
-    }
+            ForEach-Object {
+                $_
+                if ($_ -match $TextToAppendAt)
+                {
+                    $TextToAdd
+                }
+            }
     $NewContent | Out-File -FilePath $File -Encoding Default -Force
 }
 
 $ProjectName = Read-Host -Prompt 'Project Name';
 #$GHPages = Read-Host -Prompt 'Will you use GitHub pages? (y/n)'
 
-$ProjectDir = 'C:\Users\thora\IdeaProjects\'+$ProjectName
+$ProjectDir = 'C:\Users\thora\IdeaProjects\' + $ProjectName
 mkdir $ProjectDir
 Set-Location $ProjectDir
 
@@ -115,8 +118,8 @@ yarn add --dev $devDependenciesBack
 
 Write-Host 'Wrapping up...'
 Set-Location $ProjectDir
-mrm readme --config:url $MyUrl --config:name $MyName --config:github $GitUsername --config:packageName $ProjectName
-mrm license --config:license "MIT" --config:name $MyName --config:email $MyEmail --config:url $MyUrl
+mrm readme --config: url $MyUrl --config:name $MyName --config:github $GitUsername --config:packageName $ProjectName
+mrm license --config: license "MIT" --config:name $MyName --config:email $MyEmail --config:url $MyUrl
 Add-Content -Path .gitignore -Value "`r`n#IntelliJ IDEA`r`n.idea"
 
 # TODO Write Docker Files

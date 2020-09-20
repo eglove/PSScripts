@@ -27,6 +27,7 @@
 
 [String[]]$dependenciesBack =
 'bcrypt',
+'compression',
 'cors',
 'express',
 'jsonwebtoken',
@@ -116,15 +117,15 @@ yarn init -y
 yarn add $dependenciesBack
 yarn add --dev $devDependenciesBack
 
+# TODO Write Docker Files
+# Docker services:
+# PostGres (DB), Redis (Session Management)
+
 Write-Host 'Wrapping up...'
 Set-Location $ProjectDir
 mrm readme --config:url $MyUrl --config:name $MyName --config:github $GitUsername --config:packageName $ProjectName
 mrm license --config:license "MIT" --config:name $MyName --config:email $MyEmail --config:url $MyUrl
 Add-Content -Path .gitignore -Value "`r`n#IntelliJ IDEA`r`n.idea"
-
-# TODO Write Docker Files
-# Docker services:
-# PostGres (DB), Redis (Session Management)
 
 Clear-Host
 Write-Host $ProjectName build is Complete! -ForegroundColor DarkGreen

@@ -3,9 +3,11 @@
 [String[]]$dependenciesFront =
 'dotenv',
 'isomorphic-unfetch',
+'prop-types',
 'react-redux',
 'redux',
-'redux-thunk'
+'redux-thunk',
+'styled-components'
 
 [String[]]$devDependenciesFront =
 'babel-eslint',
@@ -86,7 +88,7 @@ function AppendFile($TextToAppendAt, $TextToAdd, $File)
 $ProjectName = Read-Host -Prompt 'Project Name';
 #$GHPages = Read-Host -Prompt 'Will you use GitHub pages? (y/n)'
 
-$ProjectDir = 'C:\Users\thora\IdeaProjects\' + $ProjectName
+$ProjectDir = 'C:\Users\thora\IdeaProjects\' + $ProjectName + '\'
 mkdir $ProjectDir
 Set-Location $ProjectDir
 
@@ -95,9 +97,10 @@ git init
 gh repo create
 
 Write-Host 'Building Frontend...'
+$FrontLocation = $ProjectDir + 'front'
 Set-Location $ProjectDir
 yarn create next-app front
-Set-Location $ProjectDir+'front'
+Set-Location $FrontLocation
 Remove-Item Readme.md
 yarn add $dependenciesFront
 yarn add --dev $devDependenciesFront
@@ -111,8 +114,9 @@ WriteLintConfig
 #}
 
 Write-Host 'Building Backend...'
-mkdir $ProjectDir+'back'
-Set-Location $ProjectDir+'back'
+$BackLocation = $ProjectDir + 'back'
+mkdir $BackLocation
+Set-Location $BackLocation
 yarn init -y
 yarn add $dependenciesBack
 yarn add --dev $devDependenciesBack

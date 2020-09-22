@@ -120,6 +120,7 @@ Set-Location $BackLocation
 yarn init -y
 yarn add $dependenciesBack
 yarn add --dev $devDependenciesBack
+mrm gitignore
 
 # TODO Write Docker Files
 # Docker services:
@@ -129,7 +130,7 @@ Write-Host 'Wrapping up...'
 Set-Location $ProjectDir
 mrm readme --config:url $MyUrl --config:name $MyName --config:github $GitUsername --config:packageName $ProjectName
 mrm license --config:license "MIT" --config:name $MyName --config:email $MyEmail --config:url $MyUrl
-Add-Content -Path .gitignore -Value "`r`n#IntelliJ IDEA`r`n.idea"
+mrm gitignore
 
 Clear-Host
 Write-Host $ProjectName build is Complete! -ForegroundColor DarkGreen

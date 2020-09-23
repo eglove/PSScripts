@@ -99,7 +99,7 @@ gh repo create
 Write-Host 'Building Frontend...'
 $FrontLocation = $ProjectDir + 'front'
 Set-Location $ProjectDir
-yarn create next-app front
+yarn create react-app front
 Set-Location $FrontLocation
 Remove-Item Readme.md
 yarn add $dependenciesFront

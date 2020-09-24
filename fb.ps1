@@ -27,18 +27,6 @@
 'stylelint',
 'stylelint-config-standard'
 
-[String[]]$dependenciesBack =
-'bcrypt',
-'compression',
-'cors',
-'express',
-'jsonwebtoken',
-'knex',
-'morgan'
-
-[String[]]$devDependenciesBack =
-'nodemon'
-
 $MyUrl = "https://github.com/eglove"
 $MyName = "Ethan Glover"
 $MyEmail = "hello@ethang.email"
@@ -86,21 +74,16 @@ function AppendFile($TextToAppendAt, $TextToAdd, $File)
 }
 
 $ProjectName = Read-Host -Prompt 'Project Name';
-#$GHPages = Read-Host -Prompt 'Will you use GitHub pages? (y/n)'
+$IdeaDir = 'C:\Users\thora\IdeaProjects\'
+$ProjectDir = $ProjectDir + $ProjectName + '\'
+Set-Location $IdeaDir
 
-$ProjectDir = 'C:\Users\thora\IdeaProjects\' + $ProjectName + '\'
-mkdir $ProjectDir
-Set-Location $ProjectDir
-
-Write-Host 'Initializing Git...'
-git init
 gh repo create
+$GHPages = Read-Host -Prompt 'Will you use GitHub pages? (y/n)'
 
-Write-Host 'Building Frontend...'
-$FrontLocation = $ProjectDir + 'front'
-Set-Location $ProjectDir
+Set-Location $IdeaDir
 yarn create react-app front
-Set-Location $FrontLocation
+Set-Location $ProjectDir
 Remove-Item Readme.md
 yarn add $dependenciesFront
 yarn add --dev $devDependenciesFront
@@ -109,22 +92,9 @@ mrm lint-staged
 Remove-Item 4
 WriteLintConfig
 
-#if ($GHPages -eq 'y') {
-#    GHPages
-#}
-
-Write-Host 'Building Backend...'
-$BackLocation = $ProjectDir + 'back'
-mkdir $BackLocation
-Set-Location $BackLocation
-yarn init -y
-yarn add $dependenciesBack
-yarn add --dev $devDependenciesBack
-mrm gitignore
-
-# TODO Write Docker Files
-# Docker services:
-# PostGres (DB), Redis (Session Management)
+if ($GHPages -eq 'y') {
+    GHPages
+}
 
 Write-Host 'Wrapping up...'
 Set-Location $ProjectDir

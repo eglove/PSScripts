@@ -10,7 +10,9 @@
 'styled-components'
 
 [String[]]$devDependenciesFront =
+'@jest/globals',
 'babel-eslint',
+'babel-jest',
 'eslint',
 'eslint-config-airbnb',
 'eslint-config-prettier',
@@ -33,7 +35,7 @@ $MyEmail = "hello@ethang.email"
 $GitUsername = "eglove"
 $PackageJson = '.\package.json'
 
-function WriteLintConfig
+function WriteConfig
 {
     New-Item .stylelintrc -value '{
     "extends": "stylelint-config-standard"
@@ -41,7 +43,14 @@ function WriteLintConfig
     New-Item .eslintrc -value '{
     "extends": [
         "wesbos"
-    ]
+    ],
+    "env": {
+        "jest": true
+    }
+}'
+
+    New-Item .babelrc -value '{
+    "presets": ["next/babel"]
 }'
 
     (Get-Content -path $PackageJson -Raw) -replace '"*.js": "eslint --cache --fix",', '": "eslint --cache --fix",' | Set-Content $PackageJson

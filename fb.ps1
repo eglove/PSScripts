@@ -78,10 +78,8 @@ $ProjectName = Read-Host -Prompt 'Project Name';
 $GHPages = Read-Host -Prompt 'Will you use GitHub pages? (y/n)'
 $ProjectDir = $ProjectDir + $ProjectName + '\'
 Set-Location $IdeaDir
-gh repo create $ProjectName
 
-Set-Location $IdeaDir
-yarn create react-app $ProjectName
+yarn create next-app $ProjectName
 Set-Location $ProjectDir
 Remove-Item Readme.md
 yarn add $dependenciesFront

@@ -50,7 +50,7 @@ function WriteLintConfig
 function GHPages
 {
     yarn add gh-pages --dev
-    $PackageName = '"name": "test",'
+    $PackageName = '"name": ' + $ProjectName + ','
     $PackageHomepage = '  "homepage": "http://eglove.github.io/' + $ProjectName + '",'
     $PackageScriptsStart = '"scripts": {'
     $PackagePreDeploy = '    "predeploy": "npm run build",'
@@ -73,16 +73,15 @@ function AppendFile($TextToAppendAt, $TextToAdd, $File)
     $NewContent | Out-File -FilePath $File -Encoding Default -Force
 }
 
-$ProjectName = Read-Host -Prompt 'Project Name';
 $IdeaDir = 'C:\Users\thora\IdeaProjects\'
+$ProjectName = Read-Host -Prompt 'Project Name';
+$GHPages = Read-Host -Prompt 'Will you use GitHub pages? (y/n)'
 $ProjectDir = $ProjectDir + $ProjectName + '\'
 Set-Location $IdeaDir
-
-gh repo create
-$GHPages = Read-Host -Prompt 'Will you use GitHub pages? (y/n)'
+gh repo create $ProjectName
 
 Set-Location $IdeaDir
-yarn create react-app front
+yarn create react-app $ProjectName
 Set-Location $ProjectDir
 Remove-Item Readme.md
 yarn add $dependenciesFront
@@ -96,13 +95,11 @@ if ($GHPages -eq 'y') {
     GHPages
 }
 
-Write-Host 'Wrapping up...'
-Set-Location $ProjectDir
 mrm readme --config:url $MyUrl --config:name $MyName --config:github $GitUsername --config:packageName $ProjectName
 mrm license --config:license "MIT" --config:name $MyName --config:email $MyEmail --config:url $MyUrl
 mrm gitignore
 
 Clear-Host
 Write-Host $ProjectName build is Complete! -ForegroundColor DarkGreen
-Write-Host 'Available at '+$ProjectDir -ForegroundColor DarkMagenta
+Write-Host 'Available at ' + $ProjectDir -ForegroundColor DarkMagenta
 idea

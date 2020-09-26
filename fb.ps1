@@ -3,6 +3,7 @@
 [String[]]$dependenciesFront =
 'dotenv',
 'isomorphic-unfetch',
+'next-images',
 'prop-types',
 'react-redux',
 'redux',
@@ -56,18 +57,18 @@ function WriteConfig
     (Get-Content -path $PackageJson -Raw) -replace '"*.js": "eslint --cache --fix",', '": "eslint --cache --fix",' | Set-Content $PackageJson
 }
 
-function GHPages
-{
-    yarn add gh-pages --dev
-    $PackageName = '"name": ' + $ProjectName + ','
-    $PackageHomepage = '  "homepage": "http://eglove.github.io/' + $ProjectName + '",'
-    $PackageScriptsStart = '"scripts": {'
-    $PackagePreDeploy = '    "predeploy": "npm run build",'
-    $PackagePostDeploy = '    "deploy": "gh-pages -d build",'
-    AppendFile $PackageName $PackageHomepage $PackageJson;
-    AppendFile $PackageScriptsStart $PackagePreDeploy $PackageJson
-    AppendFile $PackagePreDeploy $PackagePostDeploy $PackageJson;
-}
+#function GHPages
+#{
+#    yarn add gh-pages --dev
+#    $PackageName = '"name": ' + $ProjectName + ','
+#    $PackageHomepage = '  "homepage": "http://eglove.github.io/' + $ProjectName + '",'
+#    $PackageScriptsStart = '"scripts": {'
+#    $PackagePreDeploy = '    "predeploy": "npm run build",'
+#    $PackagePostDeploy = '    "deploy": "gh-pages -d build",'
+#    AppendFile $PackageName $PackageHomepage $PackageJson;
+#    AppendFile $PackageScriptsStart $PackagePreDeploy $PackageJson
+#    AppendFile $PackagePreDeploy $PackagePostDeploy $PackageJson;
+#}
 
 function AppendFile($TextToAppendAt, $TextToAdd, $File)
 {
@@ -98,9 +99,9 @@ mrm lint-staged
 Remove-Item 4
 WriteLintConfig
 
-if ($GHPages -eq 'y') {
-    GHPages
-}
+#if ($GHPages -eq 'y') {
+#    GHPages
+#}
 
 mrm readme --config:url $MyUrl --config:name $MyName --config:github $GitUsername --config:packageName $ProjectName
 mrm license --config:license "MIT" --config:name $MyName --config:email $MyEmail --config:url $MyUrl

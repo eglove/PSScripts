@@ -1,1 +1,4 @@
-Start-Process 'C:\Users\thora\AppData\Local\JetBrains\Toolbox\apps\IDEA-U\ch-0\202.7660.26\bin\idea64.exe' . -Verb RunAs
+# Search for idea.exe to always have latest version
+$toolboxApps = 'C:\Program Files\JetBrains'
+$ideaPath = Get-ChildItem -Path $toolboxApps -Filter idea.exe -Recurse -ErrorAction SilentlyContinue -Force
+Start-Process $ideaPath . -Verb RunAs

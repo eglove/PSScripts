@@ -57,7 +57,6 @@ choco install wsl2
 Start-Process powershell -Wait {
     wsl --set-default-version 2;
     choco install wsl-ubuntu-2004;
-    exit
 }
 
 # Install everything else
@@ -66,7 +65,6 @@ choco install $chocoPackages --skip-virus-check
 Write-Host 'Installing Yarn Globals...' -ForegroundColor Red -BackgroundColor White
 Start-Process powershell -Wait {
     yarn global add $yarnGlobals;
-    exit
 }
 Write-Host 'Installing Powershell Modules...' -ForegroundColor Red -BackgroundColor White
 Install-Package $psModules
@@ -82,9 +80,15 @@ Start-Process powershell -Wait {
     gh repo clone eglove/PSScripts;
     exit
 }
-$env:Path += ";C:\PSScripts"
+$env:Path = $env:Path,"C:\PSScripts" -join ";"
+[System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
+
 Write-Host 'Updating Everything...' -ForegroundColor Red -BackgroundColor White
-update
+# Update Modules -AcceptLicense requires Powershell7+
+# Launch new instance of powershell, launch latest PWSH to remove risk to no env var set
+Start-Proccess pwsh -Wait {
+    update
+}
 
 # Remove desktop shortcuts
 Remove-Item "C:\Users\*\Desktop\*.*" -Force
@@ -99,4 +103,10 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowCortanaButton -Value 0
 # Show all tray icons
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name EnableAutoTray -Value 0
+# Show Hidden Files
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name Hidden -Value 1
 Stop-Process -Name "Explorer"
+
+# Set Intellij Toolbox settings (will generate new idea script)
+Copy-Item $PSScriptRoot\.settings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
+Copy-Item $PSScriptRoot\.settings.json $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force

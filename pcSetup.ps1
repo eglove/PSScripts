@@ -54,19 +54,19 @@ Write-Host 'Installing WSL2...' -ForegroundColor Red -BackgroundColor White
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 choco install wsl2
-Start-Process powershell {
+Start-Process powershell -Wait {
     wsl --set-default-version 2;
     choco install wsl-ubuntu-2004;
-    exit;
+    exit
 }
 
 # Install everything else
 Write-Host 'Installing Software...' -ForegroundColor Red -BackgroundColor White
 choco install $chocoPackages --skip-virus-check
 Write-Host 'Installing Yarn Globals...' -ForegroundColor Red -BackgroundColor White
-Start-Process powershell {
+Start-Process powershell -Wait {
     yarn global add $yarnGlobals;
-    exit;
+    exit
 }
 Write-Host 'Installing Powershell Modules...' -ForegroundColor Red -BackgroundColor White
 Install-Package $psModules
@@ -75,10 +75,25 @@ refreshenv
 # Grab PSScripts from GH, run update
 Write-Host 'Cloning Powershell Scripts...' -ForegroundColor Red -BackgroundColor White
 Set-Location C:\
-Start-Process powershell {
+Start-Process powershell -Wait {
     gh repo clone eglove/PSScripts;
-    exit;
+    exit
 }
 $env:Path += ";C:\PSScripts"
 Write-Host 'Updating Everything...' -ForegroundColor Red -BackgroundColor White
 update
+
+# Remove desktop shortcuts
+Remove-Item "C:\Users\*\Desktop\*.*" -Force
+# Small Taskbar Icons
+Set-ItemProperty HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ -Name TaskbarSmallIcons -Value 1
+# Taskbar icons combine when full
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name TaskbarGlomLevel -Value 1
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarEnabled -Value 1
+# Show taskbar on mutliple displays
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarGlomLeve -Value 1
+# Hide Cortana
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowCortanaButton -Value 0
+# Show all tray icons
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name EnableAutoTray -Value 0
+Stop-Process -Name "Explorer"

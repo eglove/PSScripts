@@ -1,8 +1,3 @@
-<#
-GH Clone PSScripts
-Update
- #>
-
 [String[]]$psModules =
 'PSWindowsUpdate'
 

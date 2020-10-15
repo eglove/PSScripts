@@ -76,6 +76,9 @@ refreshenv
 Write-Host 'Cloning Powershell Scripts...' -ForegroundColor Red -BackgroundColor White
 Set-Location C:\
 Start-Process powershell -Wait {
+    gh auth login
+}
+Start-Process powershell -Wait {
     gh repo clone eglove/PSScripts;
     exit
 }

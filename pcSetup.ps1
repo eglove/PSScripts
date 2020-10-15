@@ -19,6 +19,7 @@
 'imagemagick',
 'jetbrainstoolbox',
 'jbs',
+'microsoft-teams',
 'microsoft-windows-terminal',
 'minecraft-launcher',
 'nodejs',

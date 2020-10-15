@@ -17,7 +17,7 @@
 'google-backup-and-sync'
 'GoogleChrome'
 'imagemagick'
-'intellijidea-ultimate'
+'jetbrainstoolbox'
 'jbs'
 'microsoft-windows-terminal'
 'minecraft-launcher'
@@ -56,7 +56,7 @@ wsl --set-default-version 2
 choco install wsl-ubuntu-2004
 
 # Install everything else
-choco install $chocoPackages
+choco install $chocoPackages --skip-virus-check
 yarn global add $yarnGlobals
 Install-Package $psModules
 Update-SessionEnvironment

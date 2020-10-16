@@ -1,5 +1,6 @@
 # Save use drive name
-$usbLocation = Get-Location
+$usbLocationObject = Get-Location
+$usbLocation = $usbLocationObject.toString()
 
 $psModules = @('PSWindowsUpdate')
 

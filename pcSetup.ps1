@@ -20,9 +20,9 @@ $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi' -Destination 'wslUpdate.msi'
 
 # External files only on USB
-$chocoLicense = $usbLocation+'chocolatey.license.xml'
-$jetbrainsSettings = $usbLocation+'.settings'
-$jetbrainsSettingsJson = $usbLocation+'.settings.json'
+$chocoLicense = $usbLocation'chocolatey.license.xml'
+$jetbrainsSettings = $usbLocation'.settings'
+$jetbrainsSettingsJson = $usbLocation'.settings.json'
 
 function displayStep {
     Write-Host $args[0] -ForegroundColor Red -BackgroundColor White
@@ -50,7 +50,7 @@ function installWslUbuntu {
     dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
     dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
     choco install wsl2
-    Start-Process $usbLocation+'wslUpdate.msi' -Wait
+    Start-Process $usbLocation'wslUpdate.msi' -Wait
     Start-Process powershell -Wait {
         wsl --set-default-version 2;
         choco install wsl-ubuntu-2004;
@@ -118,8 +118,8 @@ function cleanup {
     cleanmgr /d C
 
     # Delete downloads
-    Remove-Item $usbLocation+'wslUpdate.msi'
-    Remove-Item $usbLocation+'script.ps1'
+    Remove-Item $usbLocation'wslUpdate.msi'
+    Remove-Item $usbLocation'script.ps1'
 }
 
 # Temporary, will end set to AllSigned at end

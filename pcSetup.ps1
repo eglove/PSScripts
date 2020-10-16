@@ -21,9 +21,9 @@ Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblo
 $wslUpdate = Get-ChildItem 'wslUpdate.msi'
 
 # External files only on USB
-$chocoLicense = $usbLocation'chocolatey.license.xml'
-$jetbrainsSettings = $usbLocation'.settings'
-$jetbrainsSettingsJson = $usbLocation'.settings.json'
+$chocoLicense = $usbLocation+'chocolatey.license.xml'
+$jetbrainsSettings = $usbLocation+'.settings'
+$jetbrainsSettingsJson = $usbLocation+'.settings.json'
 
 # Temporary, will set to AllSigned at end
 Set-ExecutionPolicy Unrestricted;
@@ -127,8 +127,8 @@ function cleanup {
     cleanmgr /d C
 
     # Delete downloads
-    Remove-Item $usbLocation'wslUpdate.msi'
-    Remove-Item $usbLocation'script.ps1'
+    Remove-Item $usbLocation+'wslUpdate.msi'
+    Remove-Item $usbLocation+'script.ps1'
 }
 
 chocolateyProInstall

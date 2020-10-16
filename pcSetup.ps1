@@ -134,8 +134,8 @@ function cleanup {
     cleanmgr /d C
 
     # Delete downloads
-    Remove-Item $usbLocation+'wslUpdate.msi'
-    Remove-Item $usbLocation+'script.ps1'
+    Remove-Item $usbLocation'wslUpdate.msi'
+    Remove-Item $usbLocation'script.ps1'
 }
 
 chocolateyProInstall

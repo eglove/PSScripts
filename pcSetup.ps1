@@ -89,7 +89,7 @@ $env:Path = $env:Path,"C:\PSScripts" -join ";"
 
 Write-Host 'Updating Everything...' -ForegroundColor Red -BackgroundColor White
 # Update Modules -AcceptLicense requires Powershell7+
-Start-Proccess pwsh -Wait {
+Start-Process pwsh -Wait {
     update
 }
 

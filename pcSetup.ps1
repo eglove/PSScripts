@@ -6,7 +6,7 @@ $psModules = @('PSWindowsUpdate')
 
 $yarnGlobals = @('mrm')
 
-$chocoPackages = @('0ad', 'anki', 'autoclicker', 'balabolka', 'everything', 'f.lux', 'foxitreader',
+$chocoPackages = @('0ad', '7zip', 'anki', 'autoclicker', 'balabolka', 'everything', 'f.lux', 'foxitreader',
 'geforce-experience', 'geforce-game-ready-driver', 'gh', 'git', 'google-backup-and-sync', 'GoogleChrome',
 'imagemagick', 'jetbrainstoolbox', 'jbs', 'microsoft-teams', 'microsoft-windows-terminal', 'minecraft-launcher',
 'nodejs', 'notepadplusplus', 'obs-studio', 'ojdkbuild', 'picpick.portable', 'powershell-core', 'speccy', 'steam',

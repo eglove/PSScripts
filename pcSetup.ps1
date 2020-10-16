@@ -36,7 +36,6 @@
 'vlc',
 'vortex',
 'vscode',
-'wsl-ubuntu-2004',
 'yarn'
 
 # Chocolatey Pro install
@@ -86,7 +85,6 @@ $env:Path = $env:Path,"C:\PSScripts" -join ";"
 
 Write-Host 'Updating Everything...' -ForegroundColor Red -BackgroundColor White
 # Update Modules -AcceptLicense requires Powershell7+
-# Launch new instance of powershell, launch latest PWSH to remove risk to no env var set
 Start-Proccess pwsh -Wait {
     update
 }

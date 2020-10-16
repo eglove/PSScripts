@@ -38,8 +38,8 @@ function setRegistrySettings {
 # Download all setup files
 function downloadSetupFiles {
     displayStep('Downloading setup files...')
-    foreach($item in $fileNames) {
-        Start-BitsTransfer -Source $item -Destination $PSScriptRoot
+    foreach($file in $setupFiles) {
+        Start-BitsTransfer -Source $file
     }
 }
 

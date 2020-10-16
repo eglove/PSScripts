@@ -1,3 +1,6 @@
+# Save use drive name, to maintain through refreshenv
+$usbLocation = Get-Location
+
 $psModules = @('PSWindowsUpdate')
 
 $yarnGlobals = @('mrm')
@@ -16,12 +19,9 @@ $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi' -Destination 'wslUpdate.msi'
 
 # External files only on USB
-$chocoLicense = $PSScriptRoot+'chocolatey.license.xml'
-$jetbrainsSettings = $PSScriptRoot+'.settings'
-$jetbrainsSettingsJson = $PSScriptRoot+'.settings.json'
-
-# Save use drive name, to maintain through refreshenv
-$usbLocation = $env:PSScriptRoot
+$chocoLicense = $usbLocation+'chocolatey.license.xml'
+$jetbrainsSettings = $usbLocation+'.settings'
+$jetbrainsSettingsJson = $usbLocation+'.settings.json'
 
 function displayStep {
     Write-Host $args[0] -ForegroundColor Red -BackgroundColor White

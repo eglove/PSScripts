@@ -46,7 +46,7 @@ function displayStep {
 
 # Chocolatey Pro install
 displayStep 'Installing Chocolatey...'
-Set-ExecutionPolicy Unrestricted
+Set-ExecutionPolicy Unrestricted # Temporary, will end set to AllSigned at end
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 refreshenv
 New-Item $env:ChocolateyInstall\license -Type Directory -Force
@@ -118,4 +118,12 @@ Stop-Process -Name "Explorer"
 Copy-Item $PSScriptRoot\.settings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
 Copy-Item $PSScriptRoot\.settings.json $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force
 
+# Set execuation policy away from unrestricted
+Set-ExecutionPolicy AllSigned
+
+# Open clean disk tool to safely remove Windows.old
 cleanmgr /d C
+
+#Delete original script from downloads
+Set-Location $env:USERPROFILE\Downloads
+Remove-Item script.ps1

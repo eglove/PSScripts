@@ -106,7 +106,7 @@ function setSettings {
         Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ -Name $setting -Value $args[1]
     }
 }
-$advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel', 'HideFileExt')
+$advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel')
 $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 setSettings $advancedSettingsEnable 1
 setSettings $advancedSettingsDisable 0

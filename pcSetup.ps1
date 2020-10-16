@@ -83,7 +83,6 @@ Start-Process powershell -Wait {
 }
 Start-Process powershell -Wait {
     gh repo clone eglove/PSScripts;
-    exit
 }
 $env:Path = $env:Path,"C:\PSScripts" -join ";"
 [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)

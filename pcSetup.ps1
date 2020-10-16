@@ -18,7 +18,7 @@ $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 
 # Required WSL Linux Kernel, WSL2 and Ubuntu installed through chocolatey
 Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi' -Destination 'wslUpdate.msi'
-$wslUpdate = Get-ChildItem 'wslUpdate.msi'
+$wslUpdate = Get-ChildItem .\wslUpdate.msi
 
 # External files only on USB
 $chocoLicense = $usbLocation+'chocolatey.license.xml'
@@ -117,7 +117,8 @@ function cleanup {
     Get-WindowsUpdate
     Install-WindowsUpdate -AcceptAll
 
-    # Remove desktop shortcuts (includes recycle bin)
+    # Remove desktop shortcuts (includes recycle bin), does not change recycle bin visible setting...
+    # This may permanently delete the icon.
     Remove-Item "C:\Users\*\Desktop\*.*" -Force
 
     # Set execuation policy away from unrestricted

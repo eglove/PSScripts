@@ -115,3 +115,5 @@ Stop-Process -Name "Explorer"
 # Set Intellij Toolbox settings (will generate new idea script, auto updates for ides)
 Copy-Item $PSScriptRoot\.settings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
 Copy-Item $PSScriptRoot\.settings.json $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force
+
+cleanmgr /d C

@@ -51,7 +51,7 @@ function installWslUbuntu {
     dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
     dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
     choco install wsl2
-    Start-Process $wslInstaller -Wait
+    Start-Process $usbLocation+'wslUpdate.msi' -Wait
     Start-Process powershell -Wait {
         wsl --set-default-version 2;
         choco install wsl-ubuntu-2004;

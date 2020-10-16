@@ -12,9 +12,9 @@ $chocoPackages = @('0ad', 'anki', 'autoclicker', 'balabolka', 'everything', 'f.l
 $advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel')
 $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 
-#Setup files to download
-$chocoInstaller = '.\install.ps1' # Relative path in downloads destination
-$wslInstaller = '.\wsl_update_x64.msi' # Relative path in downloads destination
+# Setup files to download, assumed downloading into USB, will remove later
+$chocoInstaller = $PSScriptRoot+'\install.ps1'
+$wslInstaller = $PSScriptRoot+'\wsl_update_x64.msi'
 $setupFiles = @('https://chocolatey.org/install.ps1',
 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi')
 
@@ -38,7 +38,6 @@ function setRegistrySettings {
 # Download all setup files
 function downloadSetupFiles {
     displayStep('Downloading setup files...')
-    Set-Location $env:USERPROFILE\Downloads
     foreach($item in $fileNames) {
         Start-BitsTransfer -Source $setupFiles
     }
@@ -128,11 +127,9 @@ function cleanup {
     # Open disk cleanup tool to safely remove Windows.old
     cleanmgr /d C
 
-    # Delete downloads and original script
-    Set-Location $env:USERPROFILE\Downloads
+    # Delete downloads
     Remove-Item $chocoInstaller
     Remove-Item $wslInstaller
-    Remove-Item .\script.ps2
 }
 
 # Temporary, will end set to AllSigned at end

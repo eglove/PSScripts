@@ -87,7 +87,7 @@ refreshenv
 displayStep 'Cloning Powershell Scripts...'
 Set-Location C:\
 Start-Process powershell -Wait {
-    gh auth login
+    gh auth login;
     gh repo clone eglove/PSScripts;
 }
 $env:Path = $env:Path,"C:\PSScripts" -join ";"
@@ -107,9 +107,11 @@ function setSettings {
     }
 }
 $advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel', 'HideFileExt')
-$advancedSettingsDisable = @('ShowCortanaButton', 'EnableAutoTray', 'HideFileExt')
+$advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 setSettings $advancedSettingsEnable 1
 setSettings $advancedSettingsDisable 0
+# Not an 'advanced' setting
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name EnableAutoTray -Value 0
 Stop-Process -Name "Explorer"
 
 # Set Intellij Toolbox settings (will generate new idea script, auto updates for ides)

@@ -45,7 +45,7 @@ function downloadSetupFiles {
 
 function chocolateyProInstall {
     displayStep 'Installing Chocolatey...'
-    $chocoInstaller
+    Invoke-Expression $chocoInstaller
     refreshenv
     New-Item $env:ChocolateyInstall\license -Type Directory -Force
     Copy-Item $chocoLicense $env:ChocolateyInstall\license\chocolatey.license.xml -Force

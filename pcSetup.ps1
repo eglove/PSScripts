@@ -12,6 +12,8 @@
 'everything',
 'f.lux',
 'foxitreader',
+'geforce-experience',
+'geforce-game-ready-driver',
 'gh',
 'git',
 'google-backup-and-sync',
@@ -113,6 +115,6 @@ setSettings $advancedSettingsEnable 1
 setSettings $advancedSettingsDisable 0
 Stop-Process -Name "Explorer"
 
-# Set Intellij Toolbox settings (will generate new idea script)
+# Set Intellij Toolbox settings (will generate new idea script, auto updates for ides)
 Copy-Item $PSScriptRoot\.settings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
 Copy-Item $PSScriptRoot\.settings.json $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force

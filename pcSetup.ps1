@@ -130,6 +130,7 @@ function cleanup {
     # Delete downloads
     Remove-Item $chocoInstaller
     Remove-Item $wslInstaller
+    Remove-Item $env:PSScriptRoot\script.ps1
 }
 
 # Temporary, will end set to AllSigned at end

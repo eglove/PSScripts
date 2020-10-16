@@ -1,4 +1,4 @@
-# Save use drive name, to maintain through refreshenv
+# Save use drive name
 $usbLocation = Get-Location
 
 $psModules = @('PSWindowsUpdate')
@@ -38,12 +38,10 @@ function setRegistrySettings {
 function chocolateyProInstall {
     displayStep 'Installing Chocolatey...'
     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-    refreshenv
     New-Item $env:ChocolateyInstall\license -Type Directory -Force
     Copy-Item $chocoLicense $env:ChocolateyInstall\license\chocolatey.license.xml -Force
     choco feature enable -n allowGlobalConfirmation
     choco upgrade chocolatey.extension
-    refreshenv
 }
 
 function installWslUbuntu {
@@ -72,7 +70,6 @@ function installPackagesModules {
     displayStep 'Installing Powershell Modules...'
     Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
     Install-Package $psModules
-    refreshenv
 }
 
 # Clones eglove/PSSCripts from GitHub to C:\, sets directory as environment variable so scripts can be run

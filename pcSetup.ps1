@@ -12,11 +12,8 @@ $chocoPackages = @('0ad', 'anki', 'autoclicker', 'balabolka', 'everything', 'f.l
 $advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel')
 $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 
-# Setup files to download, assumed downloading into USB, will remove later
-$chocoInstaller = $PSScriptRoot+'install.ps1'
-$wslInstaller = $PSScriptRoot+'wsl_update_x64.msi'
-$setupFiles = @('https://chocolatey.org/install.ps1',
-'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi')
+# Required WSL Linux Kernel, WSL2 and Ubuntu installed through chocolatey
+Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi' -Destination 'wslUpdate.msi'
 
 # External files only on USB
 $chocoLicense = $PSScriptRoot+'chocolatey.license.xml'
@@ -35,17 +32,9 @@ function setRegistrySettings {
     }
 }
 
-# Download all setup files
-function downloadSetupFiles {
-    displayStep('Downloading setup files...')
-    foreach($file in $setupFiles) {
-        Start-BitsTransfer -Source $file
-    }
-}
-
 function chocolateyProInstall {
     displayStep 'Installing Chocolatey...'
-    Invoke-Expression $chocoInstaller
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
     refreshenv
     New-Item $env:ChocolateyInstall\license -Type Directory -Force
     Copy-Item $chocoLicense $env:ChocolateyInstall\license\chocolatey.license.xml -Force
@@ -128,8 +117,7 @@ function cleanup {
     cleanmgr /d C
 
     # Delete downloads
-    Remove-Item $chocoInstaller
-    Remove-Item $wslInstaller
+    Remove-Item $env:PSScriptRoot+'wslUpdate.msi'
     Remove-Item $env:PSScriptRoot+'script.ps1'
 }
 
@@ -138,7 +126,6 @@ Set-ExecutionPolicy Unrestricted;
 # Set Security Protocol to TLS 1.2, required for chocolatey
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
 
-downloadSetupFiles
 chocolateyProInstall
 installWslUbuntu
 installPackagesModules

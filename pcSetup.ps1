@@ -1,4 +1,4 @@
-# Save use drive name
+# Save drive name
 $usbLocationObject = Get-Location
 $usbLocation = $usbLocationObject.toString()
 
@@ -24,6 +24,7 @@ $wslUpdate = Get-ChildItem .\wslUpdate.msi
 $chocoLicense = $usbLocation+'chocolatey.license.xml'
 $jetbrainsSettings = $usbLocation+'.settings'
 $jetbrainsSettingsJson = $usbLocation+'.settings.json'
+$terminusSettings = $usbLocation+'.config.yaml'
 
 # Temporary, will set to AllSigned at end
 Set-ExecutionPolicy Unrestricted;
@@ -106,9 +107,14 @@ function applyRegistrySettings {
 # Settings for Jetbrains Toolbox copied from USB. Automatic updates for tools is on. Will generate bash scripts
 # for installed tools in C:\PSScripts
 function copyJetBrainsSettings {
-    displayStep('Applying Jetbrains Toolbox Settings...')
+    displayStep('Applying Jetbrains Toolbox settings...')
     Copy-Item $jetbrainsSettings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
     Copy-Item $jetbrainsSettingsJson $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force
+}
+
+function copyTerminusSetings {
+    displayStep('Applying Terminus settings...')
+    Copy-Item $terminusSettings $env:USERPROFILE\AppData\Roaming\terminus - Force
 }
 
 function cleanup {

@@ -54,10 +54,15 @@ Write-Host 'Installing WSL2...' -ForegroundColor Red -BackgroundColor White
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 choco install wsl2
+Set-Location $env:USERPROFILE\Downloads
+curl https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi --output wslUpdate.msi
+Start-Process wslUpdate.msi -Wait
 Start-Process powershell -Wait {
     wsl --set-default-version 2;
     choco install wsl-ubuntu-2004;
 }
+$ubuntuExe = Get-ChildItem -Path 'C:\Program Files\WindowsApps' -Filter ubuntu2004.exe -Recurse
+Start-Process $ubuntuExe -Wait
 
 # Install everything else
 Write-Host 'Installing Software...' -ForegroundColor Red -BackgroundColor White

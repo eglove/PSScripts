@@ -39,7 +39,7 @@ function setRegistrySettings {
 function downloadSetupFiles {
     displayStep('Downloading setup files...')
     foreach($item in $fileNames) {
-        Start-BitsTransfer -Source $setupFiles
+        Start-BitsTransfer -Source $item -Destination $PSScriptRoot
     }
 }
 
@@ -130,7 +130,7 @@ function cleanup {
     # Delete downloads
     Remove-Item $chocoInstaller
     Remove-Item $wslInstaller
-    Remove-Item $env:PSScriptRoot\script.ps1
+    Remove-Item $env:PSScriptRoot+'script.ps1'
 }
 
 # Temporary, will end set to AllSigned at end

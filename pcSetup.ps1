@@ -63,6 +63,7 @@ choco install wsl2
 Set-Location $env:USERPROFILE\Downloads
 curl https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi --output wslUpdate.msi
 Start-Process wslUpdate.msi -Wait
+Remove-Item wslUpdate.msi
 Start-Process powershell -Wait {
     wsl --set-default-version 2;
     choco install wsl-ubuntu-2004;
@@ -82,28 +83,24 @@ Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 Install-Package $psModules
 refreshenv
 
-# Grab PSScripts from GH, run update
+# Grab PSScripts from GH, set environment variable
 displayStep 'Cloning Powershell Scripts...'
 Set-Location C:\
 Start-Process powershell -Wait {
     gh auth login
-}
-Start-Process powershell -Wait {
     gh repo clone eglove/PSScripts;
 }
 $env:Path = $env:Path,"C:\PSScripts" -join ";"
 [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
 
-displayStep 'Updating Everything...'
-# Update Modules -AcceptLicense requires Powershell7+
-Start-Process pwsh -Wait {
-    update
-}
+# Update windows
+Get-WindowsUpdate
+Install-WindowsUpdate -AcceptAll
 
-# Remove desktop shortcuts
+# Remove desktop shortcuts (includes recycle bin)
 Remove-Item "C:\Users\*\Desktop\*.*" -Force
 
-# Windows settings via registry
+# Change Windows settings via registry
 function setSettings {
     foreach($setting in $args[0]) {
         Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ -Name $setting -Value $args[1]

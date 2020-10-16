@@ -13,15 +13,15 @@ $advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarE
 $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 
 # Setup files to download, assumed downloading into USB, will remove later
-$chocoInstaller = $PSScriptRoot+'\install.ps1'
-$wslInstaller = $PSScriptRoot+'\wsl_update_x64.msi'
+$chocoInstaller = $PSScriptRoot+'install.ps1'
+$wslInstaller = $PSScriptRoot+'wsl_update_x64.msi'
 $setupFiles = @('https://chocolatey.org/install.ps1',
 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi')
 
 # External files only on USB
-$chocoLicense = $PSScriptRoot+'\chocolatey.license.xml'
-$jetbrainsSettings = $PSScriptRoot+'\.settings'
-$jetbrainsSettingsJson = $PSScriptRoot+'\.settings.json'
+$chocoLicense = $PSScriptRoot+'chocolatey.license.xml'
+$jetbrainsSettings = $PSScriptRoot+'.settings'
+$jetbrainsSettingsJson = $PSScriptRoot+'.settings.json'
 
 function displayStep {
     Write-Host $args[0] -ForegroundColor Red -BackgroundColor White

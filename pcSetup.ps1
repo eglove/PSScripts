@@ -1,129 +1,150 @@
-[String[]]$psModules =
-'PSWindowsUpdate'
+$psModules = @('PSWindowsUpdate')
 
-[String[]]$yarnGlobals =
-'mrm'
+$yarnGlobals = @('mrm')
 
-[String[]]$chocoPackages =
-'0ad',
-'anki',
-'autoclicker',
-'balabolka',
-'everything',
-'f.lux',
-'foxitreader',
-'geforce-experience',
-'geforce-game-ready-driver',
-'gh',
-'git',
-'google-backup-and-sync',
-'GoogleChrome',
-'imagemagick',
-'jetbrainstoolbox',
-'jbs',
-'microsoft-teams',
-'microsoft-windows-terminal',
-'minecraft-launcher',
-'nodejs',
-'notepadplusplus',
-'obs-studio',
-'ojdkbuild',
-'picpick.portable',
-'powershell-core',
-'speccy',
-'steam',
-'terminus',
-'twitch',
-'vim',
-'vlc',
-'vortex',
-'vscode',
-'yarn'
+$chocoPackages = @('0ad', 'anki', 'autoclicker', 'balabolka', 'everything', 'f.lux', 'foxitreader',
+'geforce-experience', 'geforce-game-ready-driver', 'gh', 'git', 'google-backup-and-sync', 'GoogleChrome',
+'imagemagick', 'jetbrainstoolbox', 'jbs', 'microsoft-teams', 'microsoft-windows-terminal', 'minecraft-launcher',
+'nodejs', 'notepadplusplus', 'obs-studio', 'ojdkbuild', 'picpick.portable', 'powershell-core', 'speccy', 'steam',
+'terminus', 'twitch', 'vim', 'vlc', 'vortex', 'vscode', 'yarn')
+
+# Registry edits
+$advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel')
+$advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
+
+#Setup files to download
+$chocoInstaller = '.\install.ps1' # Relative path in downloads destination
+$wslInstaller = '.\wsl_update_x64.msi' # Relative path in downloads destination
+$setupFiles = @('https://chocolatey.org/install.ps1',
+'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi')
+
+# External files only on USB
+$chocoLicense = $PSScriptRoot+'\chocolatey.license.xml'
+$jetbrainsSettings = $PSScriptRoot+'\.settings'
+$jetbrainsSettingsJson = $PSScriptRoot+'\.settings.json'
 
 function displayStep {
     Write-Host $args[0] -ForegroundColor Red -BackgroundColor White
 }
 
-# Chocolatey Pro install
-displayStep 'Installing Chocolatey...'
-Set-ExecutionPolicy Unrestricted # Temporary, will end set to AllSigned at end
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-refreshenv
-New-Item $env:ChocolateyInstall\license -Type Directory -Force
-Copy-Item $PSScriptRoot\chocolatey.license.xml $env:ChocolateyInstall\license\chocolatey.license.xml -Force
-choco feature enable -n allowGlobalConfirmation
-choco upgrade chocolatey.extension
-refreshenv
-
-# WSL2 Install
-displayStep 'Installing WSL2...'
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-choco install wsl2
-Set-Location $env:USERPROFILE\Downloads
-curl https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi --output wslUpdate.msi
-Start-Process wslUpdate.msi -Wait
-Remove-Item wslUpdate.msi
-Start-Process powershell -Wait {
-    wsl --set-default-version 2;
-    choco install wsl-ubuntu-2004;
-}
-$ubuntuExe = Get-ChildItem -Path 'C:\Program Files\WindowsApps' -Filter ubuntu2004.exe -Recurse
-Start-Process $ubuntuExe -Wait
-
-# Install everything else
-displayStep 'Installing Software...'
-choco install $chocoPackages --skip-virus-check
-displayStep 'Installing Yarn Globals...'
-Start-Process powershell -Wait {
-    yarn global add $yarnGlobals;
-}
-displayStep 'Installing Powershell Modules...'
-Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-Install-Package $psModules
-refreshenv
-
-# Grab PSScripts from GH, set environment variable
-displayStep 'Cloning Powershell Scripts...'
-Set-Location C:\
-Start-Process powershell -Wait {
-    gh auth login;
-    gh repo clone eglove/PSScripts;
-}
-$env:Path = $env:Path,"C:\PSScripts" -join ";"
-[System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
-
-# Update windows
-Get-WindowsUpdate
-Install-WindowsUpdate -AcceptAll
-
-# Remove desktop shortcuts (includes recycle bin)
-Remove-Item "C:\Users\*\Desktop\*.*" -Force
-
-# Change Windows settings via registry
-function setSettings {
+# Change Windows explorerer advanced settings via registry
+# Args[0] = setting name, Args[1] = value
+function setRegistrySettings {
     foreach($setting in $args[0]) {
         Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ -Name $setting -Value $args[1]
     }
 }
-$advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel')
-$advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
-setSettings $advancedSettingsEnable 1
-setSettings $advancedSettingsDisable 0
-# Not an 'advanced' setting
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name EnableAutoTray -Value 0
-Stop-Process -Name "Explorer"
 
-# Set Intellij Toolbox settings (will generate new idea script, auto updates for ides)
-Copy-Item $PSScriptRoot\.settings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
-Copy-Item $PSScriptRoot\.settings.json $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force
+# Download all setup files
+function downloadSetupFiles {
+    displayStep('Downloading setup files...')
+    Set-Location $env:USERPROFILE\Downloads
+    foreach($item in $fileNames) {
+        Start-BitsTransfer -Source $setupFiles
+    }
+}
 
-# Set execuation policy away from unrestricted
-Set-ExecutionPolicy AllSigned
+function chocolateyProInstall {
+    displayStep 'Installing Chocolatey...'
+    $chocoInstaller
+    refreshenv
+    New-Item $env:ChocolateyInstall\license -Type Directory -Force
+    Copy-Item $chocoLicense $env:ChocolateyInstall\license\chocolatey.license.xml -Force
+    choco feature enable -n allowGlobalConfirmation
+    choco upgrade chocolatey.extension
+    refreshenv
+}
 
-# Open clean disk tool to safely remove Windows.old
-cleanmgr /d C
+function installWslUbuntu {
+    displayStep 'Installing WSL2...'
+    dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+    choco install wsl2
+    Start-Process $wslInstaller -Wait
+    Start-Process powershell -Wait {
+        wsl --set-default-version 2;
+        choco install wsl-ubuntu-2004;
+    }
+    $ubuntuExe = Get-ChildItem -Path 'C:\Program Files\WindowsApps' -Filter ubuntu2004.exe -Recurse
+    Start-Process $ubuntuExe -Wait
+}
 
-#Delete original script from downloads
-Set-Location $env:USERPROFILE\Downloads
-Remove-Item script.ps1
+function installPackagesModules {
+    displayStep 'Installing Software...'
+    choco install $chocoPackages --skip-virus-check
+
+    displayStep 'Installing Yarn Globals...'
+    Start-Process powershell -Wait {
+        yarn global add $yarnGlobals;
+    }
+
+    displayStep 'Installing Powershell Modules...'
+    Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+    Install-Package $psModules
+    refreshenv
+}
+
+# Clones eglove/PSSCripts from GitHub to C:\, sets directory as environment variable so scripts can be run
+# from terminal.
+function clonePsScriptsSetEnv {
+    displayStep 'Cloning Powershell Scripts...'
+    Set-Location C:\
+    Start-Process powershell -Wait {
+        gh auth login;
+        gh repo clone eglove/PSScripts;
+    }
+    $env:Path = $env:Path,"C:\PSScripts" -join ";"
+    [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
+}
+
+# Set Registry Settings, changes taskbar look, hides cortana, show hidden files and file extensions
+# Explorer will reset for changes to take effect
+function applyRegistrySettings {
+    setRegistrySettings $advancedSettingsEnable 1
+    setRegistrySettings $advancedSettingsDisable 0
+    # Not an 'advanced' setting
+    Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name EnableAutoTray -Value 0
+    Stop-Process -Name "Explorer"
+}
+
+# Settings for Jetbrains Toolbox copied from USB. Automatic updates for tools is on. Will generate bash scripts
+# for installed tools in C:\PSScripts
+function copyJetBrainsSettings {
+    Copy-Item $jetbrainsSettings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
+    Copy-Item $jetbrainsSettingsJson $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force
+}
+
+function cleanup {
+    # Update windows
+    Get-WindowsUpdate
+    Install-WindowsUpdate -AcceptAll
+
+    # Remove desktop shortcuts (includes recycle bin)
+    Remove-Item "C:\Users\*\Desktop\*.*" -Force
+
+    # Set execuation policy away from unrestricted
+    Set-ExecutionPolicy AllSigned
+
+    # Open disk cleanup tool to safely remove Windows.old
+    cleanmgr /d C
+
+    # Delete downloads and original script
+    Set-Location $env:USERPROFILE\Downloads
+    Remove-Item $chocoInstaller
+    Remove-Item $wslInstaller
+    Remove-Item .\script.ps2
+}
+
+# Temporary, will end set to AllSigned at end
+Set-ExecutionPolicy Unrestricted;
+# Set Security Protocol to TLS 1.2, required for chocolatey
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+
+downloadSetupFiles
+chocolateyProInstall
+installWslUbuntu
+installPackagesModules
+clonePsScriptsSetEnv
+applyRegistrySettings
+copyJetbrainsSettings
+cleanup

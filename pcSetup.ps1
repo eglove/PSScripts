@@ -18,6 +18,7 @@ $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
 
 # Required WSL Linux Kernel, WSL2 and Ubuntu installed through chocolatey
 Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi' -Destination 'wslUpdate.msi'
+$wslUpdate = Get-ChildItem 'wslUpdate.msi'
 
 # External files only on USB
 $chocoLicense = $usbLocation'chocolatey.license.xml'
@@ -55,7 +56,7 @@ function installWslUbuntu {
     dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
     dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
     choco install wsl2
-    Start-Process $usbLocation'wslUpdate.msi' -Wait
+    Start-Process $wslUpdate -Wait
     Start-Process powershell -Wait {
         wsl --set-default-version 2;
         choco install wsl-ubuntu-2004;

@@ -20,6 +20,9 @@ $chocoLicense = $PSScriptRoot+'chocolatey.license.xml'
 $jetbrainsSettings = $PSScriptRoot+'.settings'
 $jetbrainsSettingsJson = $PSScriptRoot+'.settings.json'
 
+# Save use drive name, to maintain through refreshenv
+$usbLocation = $env:PSScriptRoot
+
 function displayStep {
     Write-Host $args[0] -ForegroundColor Red -BackgroundColor White
 }
@@ -117,8 +120,8 @@ function cleanup {
     cleanmgr /d C
 
     # Delete downloads
-    Remove-Item $env:PSScriptRoot+'wslUpdate.msi'
-    Remove-Item $env:PSScriptRoot+'script.ps1'
+    Remove-Item $usbLocation+'wslUpdate.msi'
+    Remove-Item $usbLocation+'script.ps1'
 }
 
 # Temporary, will end set to AllSigned at end

@@ -24,6 +24,11 @@ $chocoLicense = $usbLocation'chocolatey.license.xml'
 $jetbrainsSettings = $usbLocation'.settings'
 $jetbrainsSettingsJson = $usbLocation'.settings.json'
 
+# Temporary, will set to AllSigned at end
+Set-ExecutionPolicy Unrestricted;
+# Set Security Protocol to TLS 1.2, required for chocolatey
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+
 function displayStep {
     Write-Host $args[0] -ForegroundColor Red -BackgroundColor White
 }
@@ -89,6 +94,7 @@ function clonePsScriptsSetEnv {
 # Set Registry Settings, changes taskbar look, hides cortana, show hidden files and file extensions
 # Explorer will reset for changes to take effect
 function applyRegistrySettings {
+    displayStep('Applying Registry Settings...')
     setRegistrySettings $advancedSettingsEnable 1
     setRegistrySettings $advancedSettingsDisable 0
     # Not an 'advanced' setting
@@ -99,11 +105,13 @@ function applyRegistrySettings {
 # Settings for Jetbrains Toolbox copied from USB. Automatic updates for tools is on. Will generate bash scripts
 # for installed tools in C:\PSScripts
 function copyJetBrainsSettings {
+    displayStep('Applying Jetbrains Toolbox Settings...')
     Copy-Item $jetbrainsSettings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
     Copy-Item $jetbrainsSettingsJson $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force
 }
 
 function cleanup {
+    displayStep('Updating Windows and cleaning up...')
     # Update windows
     Get-WindowsUpdate
     Install-WindowsUpdate -AcceptAll
@@ -121,11 +129,6 @@ function cleanup {
     Remove-Item $usbLocation'wslUpdate.msi'
     Remove-Item $usbLocation'script.ps1'
 }
-
-# Temporary, will end set to AllSigned at end
-Set-ExecutionPolicy Unrestricted;
-# Set Security Protocol to TLS 1.2, required for chocolatey
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
 
 chocolateyProInstall
 installWslUbuntu

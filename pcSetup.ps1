@@ -72,7 +72,8 @@ Start-Process powershell -Wait {
     yarn global add $yarnGlobals;
 }
 Write-Host 'Installing Powershell Modules...' -ForegroundColor Red -BackgroundColor White
-Install-Package $psModules
+Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+Install-Package $psModules -AcceptAll
 refreshenv
 
 # Grab PSScripts from GH, run update

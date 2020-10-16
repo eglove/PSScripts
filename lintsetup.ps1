@@ -28,4 +28,4 @@ Copy-Item 'C:\PSScripts\.stylelintrc' .stylelintrc
 Copy-Item 'C:\PSScripts\.eslintrc' .eslintrc
 
 mrm lint-staged
-rm 4
+Remove-Item 4

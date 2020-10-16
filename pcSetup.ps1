@@ -38,8 +38,12 @@
 'vscode',
 'yarn'
 
+function displayStep {
+    Write-Host $args[0] -ForegroundColor Red -BackgroundColor White
+}
+
 # Chocolatey Pro install
-Write-Host 'Installing Chocolatey...' -ForegroundColor Red -BackgroundColor White
+displayStep 'Installing Chocolatey...'
 Set-ExecutionPolicy Unrestricted
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 refreshenv
@@ -50,7 +54,7 @@ choco upgrade chocolatey.extension
 refreshenv
 
 # WSL2 Install
-Write-Host 'Installing WSL2...' -ForegroundColor Red -BackgroundColor White
+displayStep 'Installing WSL2...'
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 choco install wsl2
@@ -65,19 +69,19 @@ $ubuntuExe = Get-ChildItem -Path 'C:\Program Files\WindowsApps' -Filter ubuntu20
 Start-Process $ubuntuExe -Wait
 
 # Install everything else
-Write-Host 'Installing Software...' -ForegroundColor Red -BackgroundColor White
+displayStep 'Installing Software...'
 choco install $chocoPackages --skip-virus-check
-Write-Host 'Installing Yarn Globals...' -ForegroundColor Red -BackgroundColor White
+displayStep 'Installing Yarn Globals...'
 Start-Process powershell -Wait {
     yarn global add $yarnGlobals;
 }
-Write-Host 'Installing Powershell Modules...' -ForegroundColor Red -BackgroundColor White
+displayStep 'Installing Powershell Modules...'
 Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-Install-Package $psModules -AcceptAll
+Install-Package $psModules
 refreshenv
 
 # Grab PSScripts from GH, run update
-Write-Host 'Cloning Powershell Scripts...' -ForegroundColor Red -BackgroundColor White
+displayStep 'Cloning Powershell Scripts...'
 Set-Location C:\
 Start-Process powershell -Wait {
     gh auth login
@@ -88,7 +92,7 @@ Start-Process powershell -Wait {
 $env:Path = $env:Path,"C:\PSScripts" -join ";"
 [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
 
-Write-Host 'Updating Everything...' -ForegroundColor Red -BackgroundColor White
+displayStep 'Updating Everything...'
 # Update Modules -AcceptLicense requires Powershell7+
 Start-Process pwsh -Wait {
     update
@@ -96,21 +100,17 @@ Start-Process pwsh -Wait {
 
 # Remove desktop shortcuts
 Remove-Item "C:\Users\*\Desktop\*.*" -Force
-# Small Taskbar Icons
-Set-ItemProperty HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ -Name TaskbarSmallIcons -Value 1
-# Taskbar icons combine when full
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name TaskbarGlomLevel -Value 1
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarEnabled -Value 1
-# Show taskbar on mutliple displays
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarGlomLeve -Value 1
-# Hide Cortana
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowCortanaButton -Value 0
-# Show all tray icons
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name EnableAutoTray -Value 0
-# Show Hidden Files
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name Hidden -Value 1
-# Show File Extensions
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0
+
+# Windows settings via registry
+function setSettings {
+    foreach($setting in $args[0]) {
+        Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ -Name $setting -Value $args[1]
+    }
+}
+$advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel', 'HideFileExt')
+$advancedSettingsDisable = @('ShowCortanaButton', 'EnableAutoTray', 'HideFileExt')
+setSettings $advancedSettingsEnable 1
+setSettings $advancedSettingsDisable 0
 Stop-Process -Name "Explorer"
 
 # Set Intellij Toolbox settings (will generate new idea script)

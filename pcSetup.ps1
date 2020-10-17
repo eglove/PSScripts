@@ -26,7 +26,7 @@ $jetbrainsSettings = $usbLocation+'.settings'
 $jetbrainsSettingsJson = $usbLocation+'.settings.json'
 $terminusSettings = $usbLocation+'.config.yaml'
 
-# Temporary, will set to AllSigned at end
+# Unrestricted policy to allow for running custom scripts
 Set-ExecutionPolicy Unrestricted;
 # Set Security Protocol to TLS 1.2, required for chocolatey
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
@@ -45,7 +45,7 @@ function setRegistrySettings {
 
 function chocolateyProInstall {
     displayStep 'Installing Chocolatey...'
-    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
     New-Item $env:ChocolateyInstall\license -Type Directory -Force
     Copy-Item $chocoLicense $env:ChocolateyInstall\license\chocolatey.license.xml -Force
     choco feature enable -n allowGlobalConfirmation
@@ -126,9 +126,6 @@ function cleanup {
     # Remove desktop shortcuts (includes recycle bin), does not change recycle bin visible setting...
     # This may permanently delete the icon.
     Remove-Item "C:\Users\*\Desktop\*.*" -Force
-
-    # Set execuation policy away from unrestricted
-    Set-ExecutionPolicy AllSigned
 
     # Open disk cleanup tool to safely remove Windows.old
     cleanmgr /d C

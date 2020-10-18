@@ -123,9 +123,9 @@ function cleanup {
     Get-WindowsUpdate
     Install-WindowsUpdate -AcceptAll
 
-    # Remove desktop shortcuts (includes recycle bin), does not change recycle bin visible setting...
-    # This may permanently delete the icon.
-    Remove-Item "C:\Users\*\Desktop\*.*" -Force
+    # Remove desktop shortcuts , WARNING do not target all files, this breaks the recycle bin shortcut
+    # and desktop icons will permanently not show.
+    Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
 
     # Open disk cleanup tool to safely remove Windows.old
     cleanmgr /d C

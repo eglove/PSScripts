@@ -3,6 +3,7 @@
     "stylelint-processor-styled-components"
   ],
   "extends": [
+    "stylelint-config-idiomatic-order",
     "stylelint-config-standard",
     "stylelint-config-styled-components",
     "stylelint-a11y/recommended"

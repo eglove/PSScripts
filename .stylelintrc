@@ -5,13 +5,12 @@
   "extends": [
     "stylelint-config-standard",
     "stylelint-config-styled-components",
-    "stylelint-a11y/recommended",
-    "stylelint-config-rational-order"
+    "stylelint-a11y/recommended"
+  ],
+  "plugins": [
+    "stylelint-order"
   ],
   "rules": {
-    "plugin/rational-order": [true, {
-      "empty-line-between-groups": true
-    }],
     "indentation": "tab",
     "string-quotes": "single",
     "no-duplicate-selectors": true,

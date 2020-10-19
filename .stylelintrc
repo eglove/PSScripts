@@ -11,7 +11,7 @@
     "stylelint-order"
   ],
   "rules": {
-    "indentation": "tab",
+    "indentation": 2,
     "string-quotes": "single",
     "no-duplicate-selectors": true,
     "color-hex-case": "upper",

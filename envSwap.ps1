@@ -16,28 +16,42 @@ function runAnt {
     ant package-tar
 }
 
-$targetEnv = Read-Host 'Environment to switch to (e2e, test1, test2)'
-
-$propertiesDir = Get-ChildItem $e2eProperties
-Switch ($targetEnv) {
-    'e2e' {
-        $propertiesDir = Get-ChildItem $e2eProperties
+# Args[0] = source, Args[1] = destination
+function copyPropertiesFiles {
+    Write-Host -ForegroundColor Red 'Copying '$args[0]' to '$args[1]
+    $files = Get-ChildItem $args[0] -Filter *.properties -Recurse
+    foreach($file in $files) {
+        Copy-Item $file $args[1] -Force
     }
-    'test1' {
-        $propertiesDir = Get-ChildItem $test1Properies
-    }
-    'test2' {
-        $propertiesDir = Get-ChildItem $test2Properties
+    $files = Get-ChildItem $args[0] -Filter log4j2.xml
+    foreach($file in $files) {
+        Copy-Item $file $args[1] -Force
     }
 }
 
-Write-Host -ForegroundColor Red 'Copying properties backup to '$eamResources
-Copy-Item -Path $propertiesDir -Destination $eamResources -Recurse -Force
+$targetEnv = Read-Host 'Environment to switch to (e2e, test1, test2)'
+
+$propertiesDir = $e2eProperties
+Switch ($targetEnv) {
+    'e2e' {
+        $propertiesDir = $e2eProperties
+    }
+    'test1' {
+        $propertiesDir = $test1Properies
+    }
+    'test2' {
+        $propertiesDir = $test2Properties
+    }
+}
+
+copyPropertiesFiles $propertiesDir $eamResources
+
 Write-Host -ForegroundColor Red 'Removing build directory.'
 Remove-Item -Recurse -Force $projectLocation'\build'
+
 Write-Host -ForegroundColor Red 'Removing dist directory.'
 Remove-Item -Recurse -Force $projectLocation'\dist'
+
 runAnt
-Write-Host -ForegroundColor Red 'Copying '$eamResources' to '$projectPropertiesLocation
-Copy-Item -Path $eamResources -Destination $projectPropertiesLocation -Recurse -Force
+copyPropertiesFiles $eamResources $projectPropertiesLocation
 runAnt

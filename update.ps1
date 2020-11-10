@@ -9,3 +9,4 @@ Write-Host 'Updating Software...'
 choco upgrade all
 Write-Host 'Complete!'
 Start-Process 'C:\Program Files\Anki\anki.exe'
+Start-Process 'https://docs.google.com/spreadsheets/d/16K1DybdEvhb3ng0mtlp02sd3M9aukLXB9fzKE9oCXKk/edit#gid=0'

@@ -1,4 +1,4 @@
-# CHANGE THESE
+# CHANGE THESE - Don't include slashes after directories
 $eamAppLocation = '/eam_app'
 $eamAppExternalLocation = '/eam_app/external'
 $eamResourcesLocation = '/eam_app/eam.resources'

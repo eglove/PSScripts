@@ -56,7 +56,6 @@ function rewritePropertiesFiles {
     # Replace local paths
     $files = Get-ChildItem $eamResourcesLocation -Filter *.properties -Recurse
     $resourceLocation = '/foss/foss-ews/instances/myajws-'+$targetEnvironment+'/current/Qwest/config'
-    Write-Host $resourceLocation
     $files | ForEach-Object {
         $file = Get-ChildItem $_.FullName
         (Get-Content -Path $file) | ForEach-Object {

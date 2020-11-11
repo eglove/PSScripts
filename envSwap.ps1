@@ -59,13 +59,13 @@ function rewritePropertiesFiles {
     $files | ForEach-Object {
         $file = Get-ChildItem $_.FullName
         (Get-Content -Path $file) | ForEach-Object {
-            $_ -replace '/contentshare/content/share/dimensions/dimns/env/webdmzpt1/dotcom_static', $eamAppLocation
+            $_ -replace '/contentshare/content/share/dimensions/dimns/env/.*/dotcom_static', $eamAppLocation
         } | Set-Content -Path $file
         (Get-Content -Path $file) | ForEach-Object {
-            $_ -replace '/contentshare/content/share/dimensions/dimns/env/webdmzpt1/eam_static', $eamAppExternalLocation
+            $_ -replace '/contentshare/content/share/dimensions/dimns/env/.*/eam_static', $eamAppExternalLocation
         } | Set-Content -Path $file
         (Get-Content -Path $file) | ForEach-Object {
-            $_ -replace $resourceLocation, $eamResourcesLocation
+            $_ -replace '/foss/foss-ews/instances/myajws-.*/current/Qwest/config', $eamResourcesLocation
         } | Set-Content -Path $file
     }
 }

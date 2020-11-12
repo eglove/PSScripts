@@ -1,3 +1,5 @@
+# Run in Powershell - https://docs.microsoft.com/en-us/powershell/
+# Make sure you have Ant cli installed with environment variable set - https://ant.apache.org/
 # CHANGE THESE - Don't include slashes after directories
 $eamAppLocation = '/eam_app'
 $eamAppExternalLocation = '/eam_app/external'

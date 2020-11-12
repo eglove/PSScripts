@@ -55,7 +55,6 @@ function rewritePropertiesFiles {
 
     # Replace local paths
     $files = Get-ChildItem $eamResourcesLocation -Filter *.properties -Recurse
-    $resourceLocation = '/foss/foss-ews/instances/myajws-'+$targetEnvironment+'/current/Qwest/config'
     $files | ForEach-Object {
         $file = Get-ChildItem $_.FullName
         (Get-Content -Path $file) | ForEach-Object {
@@ -73,9 +72,9 @@ function rewritePropertiesFiles {
 function runAnt {
     Set-Location $projectLocation
     Write-Host -ForegroundColor Red 'Running Ant...'
-    ant clean
-    ant compile-junit-source
-    ant package-tar
+    ant clean -f build.xml
+    ant compile-junit-source -f build.xml
+    ant package-tar -f build.xml
 }
 
 function copyPropertiesFilesToProject {
@@ -95,7 +94,7 @@ function propertiesSetup {
     rewritePropertiesFiles
     runAnt
     copyPropertiesFilesToProject
-    runAnt
+    Write-Host -ForegroundColor Red 'Complete!'
 }
 
 $targetEnvironment = Read-Host 'Environment to switch to (e2e, test1, test2...)'

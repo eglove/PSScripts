@@ -6,7 +6,7 @@ $eamAppExternalLocation = '/eam_app/external'
 $eamResourcesLocation = '/eam_app/eam.resources'
 # Root of project containing source
 # $HOME = User home (ex. C:/Users/AC71399), same as ~/
-$projectLocation = $HOME+'/IdeaProjects/MYA-R38'
+$projectLocation = $HOME+'/IdeaProjects/MYA'
 
 # DON'T CHANGE THESE
 # Location of .e2e, .test, .test2 property files

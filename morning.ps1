@@ -27,7 +27,7 @@ function update {
     Write-Host 'Updating Software...'
     choco upgrade all
     Write-Host 'Updating WSL...'
-    Start-Process ubuntu2004 -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
+    Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
     Start-Process kali -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
     Write-Host 'Complete!'
 }

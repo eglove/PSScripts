@@ -27,14 +27,15 @@ function update {
     Write-Host 'Updating Software...'
     choco upgrade all
     Write-Host 'Updating WSL...'
-    Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
+    Start-Process ubuntu2004 -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
+    Start-Process kali -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
     Write-Host 'Complete!'
 }
 
 function openLinks {
     Start-Process 'C:\Program Files\Anki\anki.exe'
     foreach($link in $links) {
-        Start-Process 'chrome.exe' $link, '--profile-directory="Default"'
+        Start-Process chrome $link, '--profile-directory="Default"'
     }
 }
 

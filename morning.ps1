@@ -17,18 +17,14 @@ $links = @(
 )
 
 function update {
-    Write-Host 'Updating Windows...'
+    Write-Host 'Updating...'
     Get-WindowsUpdate
     Install-WindowsUpdate -AutoReboot -AcceptAll
-    Write-Host 'Updating Powershell Modules...'
     Update-Module -AcceptLicense
-    Write-Host 'Updating Global Yarn Packages...'
     yarn global upgrade
-    Write-Host 'Updating Software...'
     choco upgrade all
-    Write-Host 'Updating WSL...'
     Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
-    Write-Host 'Complete!'
+    Start-Process wsl -ArgumentList "pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U"
 }
 
 function openLinks {

@@ -91,6 +91,15 @@ function clonePsScriptsSetEnv {
     }
     $env:Path = $env:Path,"C:\PSScripts" -join ";"
     [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
+
+    # Set scheduled task to run morning script
+    $action = New-ScheduledTaskAction -Execute 'pwsh' -Argument '-command C:\PSScripts\morning.ps1 -ExecutionPolicy Bypass'
+    $trigger = New-ScheduledTaskTrigger -AtLogOn
+    $trigger.Delay = 'PT30S'
+    $principal = New-ScheduledTaskPrincipal $env:UserName -RunLevel Highest
+    $settings = New-ScheduledTaskSettingsSet
+    $task = New-ScheduledTask -Action $action -Principal $principal -Trigger $trigger -Settings $settings
+    Register-ScheduledTask update -InputObject $task
 }
 
 # Set Registry Settings, changes taskbar look, hides cortana, show hidden files and file extensions

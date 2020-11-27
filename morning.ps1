@@ -24,7 +24,6 @@ function update {
     yarn global upgrade
     choco upgrade all
     Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
-    Start-Process wsl -ArgumentList "sudo pip3 install -U $(pip3 freeze | cut -d '=' -f 1)" -Wait
 }
 
 function openLinks {

@@ -2,10 +2,6 @@
 $links = @(
 'https://docs.google.com/spreadsheets/d/16K1DybdEvhb3ng0mtlp02sd3M9aukLXB9fzKE9oCXKk/edit#gid=0',
 'https://www.resumerabbit.com/mail',
-'https://remotive.io/?live_jobs%5Bquery%5D=react&live_jobs%5BsortBy%5D=live_jobs_sort_by_date',
-'https://remotive.io/?live_jobs%5Bquery%5D=javascript&live_jobs%5BsortBy%5D=live_jobs_sort_by_date',
-'https://remotive.io/?live_jobs%5Bquery%5D=front%20end%20developer&live_jobs%5BsortBy%5D=live_jobs_sort_by_date',
-'https://remotive.io/?live_jobs%5Bquery%5D=web%20developer&live_jobs%5BsortBy%5D=live_jobs_sort_by_date',
 'https://www.linkedin.com/jobs/search/?f_E=2&f_JT=F&f_LF=f_AL&f_TPR=r86400&geoId=104428936&keywords=react&location=St%20Louis%2C%20Missouri%2C%20United%20States',
 'https://www.linkedin.com/jobs/search/?f_E=2&f_JT=F&f_LF=f_AL&f_TPR=r86400&geoId=104428936&keywords=javascript&location=St%20Louis%2C%20Missouri%2C%20United%20States',
 'https://www.linkedin.com/jobs/search/?f_E=2&f_JT=F&f_LF=f_AL&f_TPR=r86400&geoId=104428936&keywords=front%20end%20developer&location=St%20Louis%2C%20Missouri%2C%20United%20States',

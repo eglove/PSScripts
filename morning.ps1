@@ -9,7 +9,7 @@ $links = @(
 'https://www.linkedin.com/jobs/search/?f_CF=f_WRA&f_E=2&f_JT=F&f_LF=f_AL&f_TPR=r86400&geoId=103644278&keywords=react&location=United%20States',
 'https://www.linkedin.com/jobs/search/?f_CF=f_WRA&f_E=2&f_JT=F&f_LF=f_AL&f_TPR=r86400&geoId=103644278&keywords=javascript&location=United%20States',
 'https://www.linkedin.com/jobs/search/?f_CF=f_WRA&f_E=2&f_JT=F&f_LF=f_AL&f_TPR=r86400&geoId=103644278&keywords=front%20end%20developer&location=United%20States',
-'https://www.linkedin.com/jobs/search/?currentJobId=2213595016&f_CF=f_WRA&f_E=2&f_JT=F&f_LF=f_AL&f_TPR=r86400&geoId=103644278&keywords=web%20developer&location=United%20States'
+'https://www.linkedin.com/jobs/search/?f_CF=f_WRA&f_E=2&f_JT=F&f_LF=f_AL&f_TPR=r86400&geoId=103644278&keywords=web%20developer&location=United%20States'
 )
 
 function update {

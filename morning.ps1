@@ -13,7 +13,7 @@
 function openLinks {
     Start-Process 'C:\Program Files\Anki\anki.exe'
 
-    Set-Location /PSScripts/privateFunctions
+    Set-Location $PSScriptRoot/privateFunctions
     $today = Get-Date
     if ($today.DayOfWeek.Equals("Saturday")) {
         ./openFinanceLinks

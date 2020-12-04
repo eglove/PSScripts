@@ -14,8 +14,8 @@ $links = @(
 
 function update {
     Write-Host 'Updating...'
-    Get-WindowsUpdate
-    Install-WindowsUpdate -AutoReboot -AcceptAll
+    Install-WindowsUpdate -AutoReboot -AcceptAll -WindowsUpdate
+    Install-WindowsUpdate -AutoReboot -AcceptAll -MicrosoftUpdate
     Update-Module -AcceptLicense
     yarn global upgrade
     choco upgrade all

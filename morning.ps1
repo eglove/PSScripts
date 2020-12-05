@@ -15,7 +15,7 @@ function openLinks {
 
     Set-Location $PSScriptRoot/privateFunctions
     $today = Get-Date
-    if ($today.DayOfWeek.Equals("Saturday")) {
+    if ($today.DayOfWeek.ToString().Equals("Saturday")) {
         ./openFinanceLinks
     }
 

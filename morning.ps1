@@ -1,4 +1,5 @@
-﻿function update {
+﻿function update
+{
     Write-Host 'Updating...'
     Get-WindowsUpdate -WindowsUpdate
     Install-WindowsUpdate -AutoReboot -AcceptAll -WindowsUpdate
@@ -8,14 +9,20 @@
     yarn global upgrade
     choco upgrade all
     Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
+
+    # Update Wabbajack
+    Set-Location 'C:\Wabbajack'
+    Start-Process 'C:\Wabbajack\Wabbajack.exe'
 }
 
-function openLinks {
+function openLinks
+{
     Start-Process 'C:\Program Files\Anki\anki.exe'
 
     Set-Location $PSScriptRoot/privateFunctions
     $today = Get-Date
-    if ($today.DayOfWeek.ToString().Equals("Saturday")) {
+    if ( $today.DayOfWeek.ToString().Equals("Saturday"))
+    {
         ./openFinanceLinks
     }
 
@@ -24,7 +31,8 @@ function openLinks {
     Set-Location ~/
 }
 
-function morningRoutine {
+function morningRoutine
+{
     update
     openLinks
 }

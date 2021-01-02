@@ -18,6 +18,7 @@
 function openLinks
 {
     Start-Process 'C:\Program Files\Anki\anki.exe'
+    Start-Process 'C:\Users\eglove\AppData\Local\Programs\Terminus\Terminus.exe'
 
     Set-Location $PSScriptRoot/privateFunctions
     $today = Get-Date

@@ -7,7 +7,7 @@
     Install-WindowsUpdate -AutoReboot -AcceptAll -MicrosoftUpdate
     Update-Module -AcceptLicense -Confirm
     yarn global upgrade
-    choco upgrade all -y
+    choco upgrade all -y --skip-virus-check
     Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
 
     # Update Wabbajack

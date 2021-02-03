@@ -78,6 +78,7 @@ origin
 php
 playnite
 postgresql13
+previousfilesrecovery
 python3
 qbittorrent
 Silverlight

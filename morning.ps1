@@ -11,8 +11,8 @@
     Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
 
     # Update Wabbajack
-    Set-Location 'C:\Wabbajack'
-    Start-Process 'C:\Wabbajack\Wabbajack.exe'
+    Set-Location '\Wabbajack'
+    Start-Process Wabbajack
     # Delete old versions of Wabbajack
     $numberOfVersions = (Get-ChildItem -Path . -Directory).Count
     if ($numberOfVersions -gt 1)
@@ -23,7 +23,7 @@
 
 function openLinks
 {
-    Start-Process 'C:\Program Files\Anki\anki.exe'
+    Start-Process '\Program Files\Anki\anki.exe'
 
     Set-Location $PSScriptRoot/privateFunctions
     $today = Get-Date

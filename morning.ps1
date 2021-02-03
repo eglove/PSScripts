@@ -13,10 +13,11 @@
     # Update Wabbajack
     Set-Location 'C:\Wabbajack'
     Start-Process 'C:\Wabbajack\Wabbajack.exe'
-    # Delete old version of Wabbajack
-    if ((Get-ChildItem -Path . -Directory).Count -gt 1)
+    # Delete old versions of Wabbajack
+    $numberOfVersions = (Get-ChildItem -Path . -Directory).Count
+    if ($numberOfVersions -gt 1)
     {
-        Get-ChildItem . -Directory | Sort-Object LastWriteTime | Select-Object -First 1 | Remove-Item -Recurse -Force
+        Get-ChildItem . -Directory | Sort-Object LastWriteTime | Select-Object -First $numberOfVersions - 1 | Remove-Item -Recurse -Force
     }
 }
 

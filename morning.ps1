@@ -1,24 +1,26 @@
 ﻿function update
 {
     Write-Host 'Updating...'
-    Get-WindowsUpdate -WindowsUpdate
-    Install-WindowsUpdate -AutoReboot -AcceptAll -WindowsUpdate
-    Get-WindowsUpdate -MicrosoftUpdate
-    Install-WindowsUpdate -AutoReboot -AcceptAll -MicrosoftUpdate
-    Update-Module -AcceptLicense -Confirm
-    yarn global upgrade
-    choco upgrade all -y --skip-virus-check
-    Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
 
     # Update Wabbajack
     Set-Location '\Wabbajack'
     Start-Process Wabbajack
-    # Delete old versions of Wabbajack
-    $numberOfVersions = (Get-ChildItem -Path . -Directory).Count
-    if ($numberOfVersions -gt 1)
-    {
-        Get-ChildItem . -Directory | Sort-Object LastWriteTime | Select-Object -First $numberOfVersions - 1 | Remove-Item -Recurse -Force
-    }
+
+    Set-Location $PSScriptRoot
+    Get-WindowsUpdate -WindowsUpdate
+    Install-WindowsUpdate -AutoReboot -AcceptAll -WindowsUpdate
+
+    Get-WindowsUpdate -MicrosoftUpdate
+    Install-WindowsUpdate -AutoReboot -AcceptAll -MicrosoftUpdate
+
+    Update-Module -AcceptLicense -Confirm
+
+    yarn global upgrade
+
+    choco upgrade all -y --skip-virus-check
+    choco list -l -r --id-only | Out-File .\installedChocoPackages.txt
+
+    Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
 }
 
 function openLinks
@@ -37,10 +39,30 @@ function openLinks
     Set-Location ~/
 }
 
+function cleanup
+{
+    # Delete old versions of Wabbajack
+    $numberOfVersions = (Get-ChildItem -Path . -Directory).Count
+    if ($numberOfVersions -gt 1)
+    {
+        Get-ChildItem . -Directory | Sort-Object LastWriteTime | Select-Object -First $numberOfVersions - 1 | Remove-Item -Recurse -Force
+    }
+
+    # Delete desktop shortcuts
+    Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
+
+    # Update this repo (Ex. to update installedChocoPackages
+    Set-Location $PSScriptRoot
+    git add .
+    git commit -m 'Updated Installed Packages'
+    git push
+}
+
 function morningRoutine
 {
     update
     openLinks
+    cleanup
 }
 
 morningRoutine

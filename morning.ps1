@@ -78,8 +78,6 @@ function cleanup
     $date = Get-Date -Format u
     $commitMessage.Append($date)
 
-
-    Write-Host Get-Location
     git add .
     git commit -m $commitMessage.ToString()
     git push
@@ -94,8 +92,8 @@ function openLinks($links)
 
 function morningRoutine
 {
-#    update
-#    openLinks
+    update
+    openLinks
     cleanup
     Set-Location ~/
 }

@@ -80,9 +80,7 @@ function cleanup
     $date = Get-Date -Format u
     $commitMessage.Append($date)
 
-    git add .
-    git commit -m $commitMessage.ToString()
-    git push
+    gitall
 }
 
 function openLinksArray($links)

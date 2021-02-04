@@ -49,14 +49,13 @@ function openLinks
 {
     Start-Process '\Program Files\Anki\anki.exe'
 
-    Set-Location $PSScriptRoot/privateFunctions
     $today = Get-Date
     if ( $today.DayOfWeek.ToString().Equals("Saturday"))
     {
-        openLinks($financeLinks)
+        openLinksArray($financeLinks)
     }
 
-    openLinks($morningLinks)
+    openLinksArray($morningLinks)
 }
 
 function cleanup
@@ -86,7 +85,7 @@ function cleanup
     git push
 }
 
-function openLinks($links)
+function openLinksArray($links)
 {
     foreach($link in $links) {
         Start-Process Chrome $link

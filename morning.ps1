@@ -1,6 +1,9 @@
 ﻿$wabbaJackLocation = '\Wabbajack';
 
-$morningLinks = @('https://mail.google.com/mail/u/1/#inbox');
+$morningLinks = @(
+    'https://hangouts.google.com/?authuser=1',
+    'https://mail.google.com/mail/u/1/#inbox'
+);
 $financeLinks = @(
     'https://www.glassdoor.com/knowyourworth/dashboard.htm',
     'https://www.paypal.com/',

@@ -104,7 +104,6 @@ vortex
 vscode
 vscode.install
 WhatsApp
-whois
 wsl
 wsl-ubuntu-2004
 wsl2

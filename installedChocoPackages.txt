@@ -79,6 +79,7 @@ origin
 php
 playnite
 postgresql13
+postman
 previousfilesrecovery
 python3
 qbittorrent

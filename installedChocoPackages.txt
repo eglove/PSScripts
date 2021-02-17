@@ -106,6 +106,7 @@ vortex
 vscode
 vscode.install
 WhatsApp
+windowgrid
 wsl
 wsl-ubuntu-2004
 wsl2

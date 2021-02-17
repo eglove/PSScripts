@@ -11,6 +11,8 @@ $chocoPackages = Get-Content -Path './installedChocoPackages.txt';
 # Registry edits
 $advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel')
 $advancedSettingsDisable = @('ShowCortanaButton', 'HideFileExt')
+# Storage Sense On, Run Daily, Delete Temporary Files, Delete Recycle Bin Daily, Delete Downloads folder Daily
+$storageSettingsEnable = @(01, 04, 08, 32, 512, 256, 2048)
 
 # Required WSL Linux Kernel, WSL2 and Ubuntu installed through chocolatey
 Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi' -Destination 'wslUpdate.msi'
@@ -36,6 +38,12 @@ function displayStep {
 function setRegistrySettings {
     foreach($setting in $args[0]) {
         Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ -Name $setting -Value $args[1]
+    }
+}
+
+function setStorageSenseSettings {
+    foreach($setting in $args[0]) {
+        Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -Name $setting -Value $args[1]
     }
 }
 
@@ -103,7 +111,9 @@ function clonePsScriptsSetEnv {
 function applyRegistrySettings {
     displayStep('Applying Registry Settings...')
     setRegistrySettings $advancedSettingsEnable 1
+    setStorageSenseSettings $storageSettingsEnable 1
     setRegistrySettings $advancedSettingsDisable 0
+
     # Not an 'advanced' setting
     Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name EnableAutoTray -Value 0
     Stop-Process -Name "Explorer"

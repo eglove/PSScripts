@@ -7,11 +7,11 @@ $devDependencies = @('babel-eslint', 'eslint', 'eslint-config-airbnb', 'eslint-c
 'stylelint-config-standard', 'stylelint-config-styled-components', 'stylelint-order',
 'stylelint-processor-styled-components')
 
-if ($args[0] -ne $null)
+if ($null -ne $args[0])
 {
     yarn create next-app $args[0]
 
-    cd $args[0]
+    Set-Location $args[0]
     yarn add $dependencies
     yarn add --dev $devDependencies
 

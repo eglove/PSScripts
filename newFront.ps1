@@ -24,6 +24,7 @@ if ($null -ne $args[0])
     mrm license --config:name 'Ethan Glover' --config:email 'hello@ethang.email'
     Remove-Item 4
     Remove-Item README.md
+    webstorm .
 } else {
     Write-Host "Requires argument for name of project.";
 }

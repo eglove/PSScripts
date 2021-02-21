@@ -1,4 +1,4 @@
-$dependencies = $( 'styled-components' )
+$dependencies = $( 'styled-components', 'styled-reset' )
 
 $devDependencies = @('babel-eslint', 'eslint', 'eslint-config-airbnb', 'eslint-config-prettier',
 'eslint-config-wesbos', 'eslint-plugin-graphql', 'eslint-plugin-html', 'eslint-plugin-import',
@@ -14,4 +14,7 @@ Copy-Item 'C:\PSScripts\.stylelintrc' .stylelintrc
 Copy-Item 'C:\PSScripts\.eslintrc' .eslintrc
 
 mrm lint-staged
+mrm gitignore
+mrm jest
+mrm license --config:name 'Ethan Glover' --config:email 'hello@ethang.email'
 Remove-Item 4

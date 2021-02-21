@@ -137,6 +137,9 @@ function copySettings
 
 function cleanup
 {
+    # Cache git credentials
+    git config --global credential.helper wincred
+
     displayStep('Updating Windows and cleaning up...')
     # Update windows
     Get-WindowsUpdate

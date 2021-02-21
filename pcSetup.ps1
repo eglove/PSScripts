@@ -155,6 +155,8 @@ function cleanup
     # Delete downloads
     Remove-Item $usbLocation'wslUpdate.msi'
     Remove-Item $usbLocation'script.ps1'
+
+    Restart-Computer
 }
 
 chocolateyProInstall

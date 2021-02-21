@@ -1,6 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import Raleway from './fonts/Raleway.ttf';
 
 export const GlobalStyles = createGlobalStyle`
   /* stylelint-disable */
@@ -12,7 +11,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: Raleway;
     font-style: normal;
     font-weight: 500;
-    src: local('Raleway'), url(${Raleway}) format('truetype');
+    src: local('Raleway'), './fonts/Raleway.ttf') format('truetype');
   }
   
   :root {
@@ -90,19 +89,6 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0.5em 10px;
     margin: 1.5em 10px;
   }
-`;
-
-export const TapTarget = styled.a`
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-`;
-
-export const ItemContainerStyles = styled.div`
-  padding: 1rem;
-  margin: 1rem 0;
-  background: var(--itemBackgroundColor);
-  box-shadow: var(--boxShadow);
 `;
 
 export const ContentVisibility = styled.div`

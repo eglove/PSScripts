@@ -1,10 +1,7 @@
-$dependencies = $( 'styled-components', 'styled-reset' )
+$dependencies = $( 'prop-types', 'styled-components', 'styled-reset' )
 
-$devDependencies = @('babel-eslint', 'eslint', 'eslint-config-airbnb', 'eslint-config-prettier',
-'eslint-config-wesbos', 'eslint-plugin-graphql', 'eslint-plugin-html', 'eslint-plugin-import',
-'eslint-plugin-jsx-a11y', 'eslint-plugin-prettier', 'eslint-plugin-react', 'eslint-plugin-react-hooks', 'prettier',
-'stylelint', 'stylelint-a11y', 'stylelint-config-idiomatic-order', 'stylelint-config-prettier',
-'stylelint-config-standard', 'stylelint-config-styled-components', 'stylelint-order',
+$devDependencies = @('stylelint', 'stylelint-a11y', 'stylelint-config-idiomatic-order',
+'stylelint-config-prettier', 'stylelint-config-standard', 'stylelint-config-styled-components', 'stylelint-order',
 'stylelint-processor-styled-components')
 
 if ($null -ne $args[0])
@@ -20,6 +17,7 @@ if ($null -ne $args[0])
     Copy-Item $PSScriptRoot'/newProject/GlobalStyles.css.js' './styles/GlobalStyles.css.js'
     Copy-Item -Recurse $PSScriptRoot'/newProject/fonts' './styles/fonts'
 
+    npx install-peerdeps --dev eslint-config-wesbos
     mrm lint-staged
     mrm gitignore
     mrm jest

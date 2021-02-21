@@ -5,8 +5,6 @@ amazon-music
 anaconda3
 anki
 autoclicker
-autohotkey
-autohotkey.install
 autohotkey.portable
 balabolka
 checksum
@@ -43,6 +41,7 @@ github-desktop
 goggalaxy
 google-backup-and-sync
 GoogleChrome
+grammarly
 greenshot
 imagemagick
 imagemagick.app
@@ -77,6 +76,8 @@ obs-studio.install
 ojdkbuild
 origin
 php
+phraseexpress
+phraseexpress.install
 playnite
 postgresql13
 postman

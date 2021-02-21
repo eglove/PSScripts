@@ -42,7 +42,9 @@ function update
     choco upgrade all -y --skip-virus-check
     choco list -l -r --id-only | Out-File .\installedChocoPackages.txt
 
-    Start-Process wsl -ArgumentList "sudo apt update && sudo apt upgrade -y && sudo apt autoremove" -Wait
+    $wslPassword = (Select-String -Path .env -Pattern 'wslPassword=').ToString().Split('=')[1];
+    $wslUpdateCommand = "echo "+$wslPassword+" | sudo -S apt update && sudo apt upgrade -y && sudo apt autoremove"
+    Start-Process wsl -ArgumentList $wslUpdateCommand -Wait
 }
 
 function openLinks

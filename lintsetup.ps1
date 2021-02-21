@@ -1,4 +1,4 @@
-$dependencies = $('styled-components')
+$dependencies = $( 'styled-components' )
 
 $devDependencies = @('babel-eslint', 'eslint', 'eslint-config-airbnb', 'eslint-config-prettier',
 'eslint-config-wesbos', 'eslint-plugin-graphql', 'eslint-plugin-html', 'eslint-plugin-import',

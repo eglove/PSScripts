@@ -5,7 +5,8 @@ $apps = @(
 'C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe'
 )
 
-foreach($app in $apps) {
+foreach ($app in $apps)
+{
     Start-Process $app
 }
 

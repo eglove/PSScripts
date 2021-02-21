@@ -14,32 +14,38 @@ Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblo
 $wslUpdate = Get-ChildItem .\wslUpdate.msi
 
 # License file must be on USB
-$chocoLicense = $usbLocation+'chocolatey.license.xml'
+$chocoLicense = $usbLocation + 'chocolatey.license.xml'
 
 # Unrestricted policy to allow for running custom scripts
 Set-ExecutionPolicy Unrestricted;
 # Set Security Protocol to TLS 1.2, required for chocolatey
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
 
-function displayStep {
+function displayStep
+{
     Write-Host $args[0] -ForegroundColor Red -BackgroundColor White
 }
 
 # Change Windows explorerer advanced settings via registry
 # Args[0] = setting name, Args[1] = value
-function setRegistrySettings {
-    foreach($setting in $args[0]) {
+function setRegistrySettings
+{
+    foreach ($setting in $args[0])
+    {
         Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ -Name $setting -Value $args[1]
     }
 }
 
-function setStorageSenseSettings {
-    foreach($setting in $args[0]) {
+function setStorageSenseSettings
+{
+    foreach ($setting in $args[0])
+    {
         Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -Name $setting -Value $args[1]
     }
 }
 
-function chocolateyProInstall {
+function chocolateyProInstall
+{
     displayStep 'Installing Chocolatey...'
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
     New-Item $env:ChocolateyInstall\license -Type Directory -Force
@@ -48,7 +54,8 @@ function chocolateyProInstall {
     choco upgrade chocolatey.extension
 }
 
-function installWslUbuntu {
+function installWslUbuntu
+{
     displayStep 'Installing WSL2...'
     dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
     dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
@@ -64,7 +71,8 @@ function installWslUbuntu {
 
 # Clones eglove/PSSCripts from GitHub to C:\, sets directory as environment variable so scripts can be run
 # from terminal.
-function clonePsScriptsSetEnv {
+function clonePsScriptsSetEnv
+{
     displayStep 'Cloning Powershell Scripts...'
     Set-Location C:\
     choco install gh
@@ -72,7 +80,7 @@ function clonePsScriptsSetEnv {
         gh auth login;
         gh repo clone eglove/PSScripts;
     }
-    $env:Path = $env:Path,"C:\PSScripts" -join ";"
+    $env:Path = $env:Path, "C:\PSScripts" -join ";"
     [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
 
     # Set scheduled task to run morning script
@@ -85,7 +93,8 @@ function clonePsScriptsSetEnv {
     Register-ScheduledTask update -InputObject $task
 }
 
-function installPackagesModules {
+function installPackagesModules
+{
     displayStep 'Installing Software...'
     $chocoPackages = Get-Content '/PSScripts/installedChocoPackages.txt'
     choco install $chocoPackages --skip-virus-check
@@ -98,14 +107,16 @@ function installPackagesModules {
     displayStep 'Installing Powershell Modules...'
     $psModules = Get-Content '/PSScripts/installedPSModules.txt'
     Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-    foreach($module in $psModules) {
+    foreach ($module in $psModules)
+    {
         Install-Package $module -Confirm
     }
 }
 
 # Set Registry Settings, changes taskbar look, hides cortana, show hidden files and file extensions
 # Explorer will reset for changes to take effect
-function applyRegistrySettings {
+function applyRegistrySettings
+{
     displayStep('Applying Registry Settings...')
     setRegistrySettings $advancedSettingsEnable 1
     setStorageSenseSettings $storageSettingsEnable 1
@@ -116,14 +127,16 @@ function applyRegistrySettings {
     Stop-Process -Name "Explorer"
 }
 
-function copySettings {
+function copySettings
+{
     Copy-Item '/PSScripts/settingsBackup/.settings' '~/AppData/Local/Jetbrains/Toolbox/.settings' -Force
     Copy-Item '/PSScripts/settingsBackup/.settings.json' '~/AppData/Local/Jetbrains/Toolbox/.settings' -Force
     Copy-Item '/PSScripts/settingsBackup/config.yaml' '~/AppData/Roaming/terminus/config.yaml' -Force
     Copy-Item '/PSScripts/settingsBackup/phrases.pxp' '~/Google Drive/PhraseExpress/phrases.pxp' -Force
 }
 
-function cleanup {
+function cleanup
+{
     displayStep('Updating Windows and cleaning up...')
     # Update windows
     Get-WindowsUpdate

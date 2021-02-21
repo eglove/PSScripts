@@ -1,28 +1,28 @@
 ﻿$wabbaJackLocation = '\Wabbajack';
 
 $morningLinks = @(
-    'https://hangouts.google.com/?authuser=1',
-    'https://mail.google.com/mail/u/1/#inbox'
+'https://hangouts.google.com/?authuser=1',
+'https://mail.google.com/mail/u/1/#inbox'
 );
 $financeLinks = @(
-    'https://www.glassdoor.com/knowyourworth/dashboard.htm',
-    'https://www.paypal.com/',
-    'https://smile.amazon.com/gp/css/order-history?ie=UTF8&ref_=nav_youraccount_orders&',
-    'https://docs.google.com/spreadsheets/d/1NRRzw3Ok7my5xRIG6AKKoBadOK3Sca4ZoMg2vhKHxoA/edit',
-    'https://thevillagesgg.securecafe.com/residentservices/villages-at-general-grant/payments.aspx#tab_MakePayments',
-    'https://www.ameren.com/',
-    'https://www.chase.com/',
-    'https://www.usaa.com/inet/ent_logon/Logon?redirectjsp=true',
-    'https://www.lightstream.com/account',
-    'https://www.wealthfront.com/',
-    'https://www.lendingclub.com/',
-    'https://app.youneedabudget.com/'
+'https://www.glassdoor.com/knowyourworth/dashboard.htm',
+'https://www.paypal.com/',
+'https://smile.amazon.com/gp/css/order-history?ie=UTF8&ref_=nav_youraccount_orders&',
+'https://docs.google.com/spreadsheets/d/1NRRzw3Ok7my5xRIG6AKKoBadOK3Sca4ZoMg2vhKHxoA/edit',
+'https://thevillagesgg.securecafe.com/residentservices/villages-at-general-grant/payments.aspx#tab_MakePayments',
+'https://www.ameren.com/',
+'https://www.chase.com/',
+'https://www.usaa.com/inet/ent_logon/Logon?redirectjsp=true',
+'https://www.lightstream.com/account',
+'https://www.wealthfront.com/',
+'https://www.lendingclub.com/',
+'https://app.youneedabudget.com/'
 );
 $settingsToBackup = @(
-    '~/AppData/Local/JetBrains/Toolbox/.settings',
-    '~/AppData/Local/JetBrains/Toolbox/.settings.json',
-    '~/AppData/Roaming/terminus/config.yaml',
-    '~/Google Drive/PhraseExpress/phrases.pxp'
+'~/AppData/Local/JetBrains/Toolbox/.settings',
+'~/AppData/Local/JetBrains/Toolbox/.settings.json',
+'~/AppData/Roaming/terminus/config.yaml',
+'~/Google Drive/PhraseExpress/phrases.pxp'
 );
 
 function update
@@ -43,7 +43,7 @@ function update
     Write-Host 'Running PS Module Update...'
     Update-Module -AcceptLicense -Confirm
     Get-InstalledModule | Format-Table Name -HideTableHeaders | Out-File .\installedPSModules.txt
-    (Get-Content .\installedPSModules.txt) | Where-Object {$_.trim() -ne "" } | Set-Content .\installedPSModules.txt
+    (Get-Content .\installedPSModules.txt) | Where-Object { $_.trim() -ne "" } | Set-Content .\installedPSModules.txt
 
     yarn global upgrade
 
@@ -51,7 +51,7 @@ function update
     choco list -l -r --id-only | Out-File .\installedChocoPackages.txt
 
     $wslPassword = (Select-String -Path .env -Pattern 'wslPassword=').ToString().Split('=')[1];
-    $wslUpdateCommand = "echo "+$wslPassword+" | sudo -S apt update && sudo apt upgrade -y && sudo apt autoremove"
+    $wslUpdateCommand = "echo " + $wslPassword + " | sudo -S apt update && sudo apt upgrade -y && sudo apt autoremove"
     Start-Process wsl -ArgumentList $wslUpdateCommand -Wait
 }
 
@@ -70,12 +70,13 @@ function openLinks
 
 function backupSettings
 {
-    foreach($setting in $settingsToBackup) {
+    foreach ($setting in $settingsToBackup)
+    {
         Copy-Item $setting ./settingsBackup
     }
 
     Get-ChildItem './settingsBackup' | Format-Table Name -HideTableHeaders | Out-File './backedUpSettings.txt'
-    (Get-Content './backedUpSettings.txt') | Where-Object {$_.trim() -ne ""} | Set-Content './backedUpSettings.txt'
+    (Get-Content './backedUpSettings.txt') | Where-Object { $_.trim() -ne "" } | Set-Content './backedUpSettings.txt'
 }
 
 function cleanup
@@ -106,7 +107,9 @@ function cleanup
     if ($?)
     {
         git push
-    } else {
+    }
+    else
+    {
         Add-Content -Path .\theGraph.txt 'The GitHub contribution graph is a lie.'
         git add .
         git commit -m $commitMessage.ToString()
@@ -116,7 +119,8 @@ function cleanup
 
 function openLinksArray($links)
 {
-    foreach($link in $links) {
+    foreach ($link in $links)
+    {
         Start-Process Chrome $link
     }
 }

@@ -2,7 +2,7 @@
 $usbLocationObject = Get-Location
 $usbLocation = $usbLocationObject.toString()
 
-$psModules = @('PSWindowsUpdate')
+$psModules = Get-Content -Path './installedPSModules.txt';
 
 $yarnGlobals = @('mrm')
 
@@ -81,7 +81,9 @@ function installPackagesModules {
 
     displayStep 'Installing Powershell Modules...'
     Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-    Install-Package $psModules
+    foreach($module in $psModules) {
+        Install-Package $module -Confirm
+    }
 }
 
 # Clones eglove/PSSCripts from GitHub to C:\, sets directory as environment variable so scripts can be run

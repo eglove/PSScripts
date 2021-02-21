@@ -73,6 +73,9 @@ function backupSettings
     foreach($setting in $settingsToBackup) {
         Copy-Item $setting ./settingsBackup
     }
+
+    Get-ChildItem './settingsBackup' | Format-Table Name -HideTableHeaders | Out-File './backedUpSettings.txt'
+    (Get-Content './backedUpSettings.txt') | Where-Object {$_.trim() -ne ""} | Set-Content './backedUpSettings.txt'
 }
 
 function cleanup
@@ -92,7 +95,6 @@ function cleanup
 
     # Update this repo (Ex. to update installedChocoPackages
     Set-Location $PSScriptRoot
-    Add-Content -Path .\theGraph.txt 'The GitHub contribution graph is a lie.'
     $commitMessage = [System.Text.StringBuilder]::new()
     $commitMessage.Append('Automatic update: ');
     $date = Get-Date -Format u
@@ -100,7 +102,16 @@ function cleanup
 
     git add .
     git commit -m $commitMessage.ToString()
-    git push
+
+    if ($?)
+    {
+        git push
+    } else {
+        Add-Content -Path .\theGraph.txt 'The GitHub contribution graph is a lie.'
+        git add .
+        git commit -m $commitMessage.ToString()
+        git push
+    }
 }
 
 function openLinksArray($links)

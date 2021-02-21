@@ -1,0 +1,4 @@
+.settings
+.settings.json
+config.yaml
+phrases.pxp

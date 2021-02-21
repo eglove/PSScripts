@@ -1,12 +1,7 @@
 # Save drive name
 $usbLocationObject = Get-Location
 $usbLocation = $usbLocationObject.toString()
-
-$psModules = Get-Content -Path './installedPSModules.txt';
-
 $yarnGlobals = @('mrm')
-
-$chocoPackages = Get-Content -Path './installedChocoPackages.txt';
 
 # Registry edits
 $advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel')
@@ -18,11 +13,8 @@ $storageSettingsEnable = @(01, 04, 08, 32, 512, 256, 2048)
 Start-BitsTransfer -Source 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi' -Destination 'wslUpdate.msi'
 $wslUpdate = Get-ChildItem .\wslUpdate.msi
 
-# External files only on USB
+# License file must be on USB
 $chocoLicense = $usbLocation+'chocolatey.license.xml'
-$jetbrainsSettings = $usbLocation+'.settings'
-$jetbrainsSettingsJson = $usbLocation+'.settings.json'
-$terminusSettings = $usbLocation+'.config.yaml'
 
 # Unrestricted policy to allow for running custom scripts
 Set-ExecutionPolicy Unrestricted;
@@ -70,27 +62,12 @@ function installWslUbuntu {
     Start-Process $ubuntuExe -Wait
 }
 
-function installPackagesModules {
-    displayStep 'Installing Software...'
-    choco install $chocoPackages --skip-virus-check
-
-    displayStep 'Installing Yarn Globals...'
-    Start-Process powershell -Wait {
-        yarn global add $yarnGlobals;
-    }
-
-    displayStep 'Installing Powershell Modules...'
-    Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-    foreach($module in $psModules) {
-        Install-Package $module -Confirm
-    }
-}
-
 # Clones eglove/PSSCripts from GitHub to C:\, sets directory as environment variable so scripts can be run
 # from terminal.
 function clonePsScriptsSetEnv {
     displayStep 'Cloning Powershell Scripts...'
     Set-Location C:\
+    choco install gh
     Start-Process powershell -Wait {
         gh auth login;
         gh repo clone eglove/PSScripts;
@@ -108,6 +85,24 @@ function clonePsScriptsSetEnv {
     Register-ScheduledTask update -InputObject $task
 }
 
+function installPackagesModules {
+    displayStep 'Installing Software...'
+    $chocoPackages = Get-Content '/PSScripts/installedChocoPackages.txt'
+    choco install $chocoPackages --skip-virus-check
+
+    displayStep 'Installing Yarn Globals...'
+    Start-Process powershell -Wait {
+        yarn global add $yarnGlobals;
+    }
+
+    displayStep 'Installing Powershell Modules...'
+    $psModules = Get-Content '/PSScripts/installedPSModules.txt'
+    Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+    foreach($module in $psModules) {
+        Install-Package $module -Confirm
+    }
+}
+
 # Set Registry Settings, changes taskbar look, hides cortana, show hidden files and file extensions
 # Explorer will reset for changes to take effect
 function applyRegistrySettings {
@@ -121,17 +116,11 @@ function applyRegistrySettings {
     Stop-Process -Name "Explorer"
 }
 
-# Settings for Jetbrains Toolbox copied from USB. Automatic updates for tools is on. Will generate bash scripts
-# for installed tools in C:\PSScripts
-function copyJetBrainsSettings {
-    displayStep('Applying Jetbrains Toolbox settings...')
-    Copy-Item $jetbrainsSettings $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings -Force
-    Copy-Item $jetbrainsSettingsJson $env:USERPROFILE\AppData\Local\Jetbrains\Toolbox\.settings.json -Force
-}
-
-function copyTerminusSetings {
-    displayStep('Applying Terminus settings...')
-    Copy-Item $terminusSettings $env:USERPROFILE\AppData\Roaming\terminus - Force
+function copySettings {
+    Copy-Item '/PSScripts/settingsBackup/.settings' '~/AppData/Local/Jetbrains/Toolbox/.settings' -Force
+    Copy-Item '/PSScripts/settingsBackup/.settings.json' '~/AppData/Local/Jetbrains/Toolbox/.settings' -Force
+    Copy-Item '/PSScripts/settingsBackup/config.yaml' '~/AppData/Roaming/terminus/config.yaml' -Force
+    Copy-Item '/PSScripts/settingsBackup/phrases.pxp' '~/Google Drive/PhraseExpress/phrases.pxp' -Force
 }
 
 function cleanup {
@@ -154,8 +143,8 @@ function cleanup {
 
 chocolateyProInstall
 installWslUbuntu
-installPackagesModules
 clonePsScriptsSetEnv
+installPackagesModules
 applyRegistrySettings
-copyJetbrainsSettings
+copySettings
 cleanup

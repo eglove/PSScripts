@@ -46,14 +46,6 @@ export const GlobalStyles = createGlobalStyle`
     font-family: Raleway, sans-serif;
   }
   
-  a[href^='/blog/'], 
-  a[href^='/portfolio/'],
-  a:visited[href^='/blog/'], 
-  a:visited[href^='/portfolio/'] {
-    color: var(--fontColor);
-    text-decoration-style: dotted;
-  }
-  
   h1 {
     font-size: 3.815rem;
     line-height: 5.7225rem;

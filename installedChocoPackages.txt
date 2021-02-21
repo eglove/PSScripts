@@ -36,6 +36,7 @@ geforce-experience
 geforce-game-ready-driver
 gh
 git
+git-credential-manager-for-windows
 git.install
 github-desktop
 goggalaxy

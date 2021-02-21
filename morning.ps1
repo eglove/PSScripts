@@ -82,7 +82,11 @@ function cleanup
 
     git add .
     git commit -m $commitMessage.ToString()
-    git push
+
+    if($?)
+    {
+        git push
+    }
 }
 
 function openLinksArray($links)

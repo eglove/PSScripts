@@ -1,0 +1,29 @@
+{
+    "update" : {
+        "filter" : {
+            "quality_filter" : {
+                "order_value" : 10000
+            }
+        }
+    },
+    "shell_scripts" : {
+        "enabled" : true,
+        "location" : "C:\\PSScripts"
+    },
+    "jetbrains_account" : {
+        "active" : "glover.ethan@gmail.com"
+    },
+    "projects" : { },
+    "signal" : "settingsChanged",
+    "privacy_policy" : {
+        "eua_accepted_version" : "1.2"
+    },
+    "statistics" : {
+        "allow" : true
+    },
+    "tools" : {
+        "update_all_automatically" : true
+    },
+    "channel_rollback_max_history" : 1,
+    "ordering" : { }
+}

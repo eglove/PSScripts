@@ -18,6 +18,12 @@ $financeLinks = @(
     'https://www.lendingclub.com/',
     'https://app.youneedabudget.com/'
 );
+$settingsToBackup = @(
+    '~/AppData/Local/JetBrains/Toolbox/.settings',
+    '~/AppData/Local/JetBrains/Toolbox/.settings.json',
+    '~/AppData/Roaming/terminus/config.yaml',
+    '~/Google Drive/PhraseExpress/phrases.pxp'
+);
 
 function update
 {
@@ -62,6 +68,13 @@ function openLinks
     openLinksArray($morningLinks)
 }
 
+function backupSettings
+{
+    foreach($setting in $settingsToBackup) {
+        Copy-Item $setting ./settingsBackup
+    }
+}
+
 function cleanup
 {
     # Delete old versions of Wabbajack
@@ -101,6 +114,7 @@ function morningRoutine
 {
     update
     openLinks
+    backupSettings
     cleanup
     Set-Location ~/
 }

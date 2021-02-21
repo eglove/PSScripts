@@ -78,8 +78,8 @@ function cleanup
     Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
 
     # Update this repo (Ex. to update installedChocoPackages
-    Add-Content -Path .\theGraph.txt 'The GitHub contribution graph is a lie.'
     Set-Location $PSScriptRoot
+    Add-Content -Path .\theGraph.txt 'The GitHub contribution graph is a lie.'
     $commitMessage = [System.Text.StringBuilder]::new()
     $commitMessage.Append('Automatic update: ');
     $date = Get-Date -Format u

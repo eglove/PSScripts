@@ -80,6 +80,7 @@ php
 phraseexpress
 phraseexpress.install
 playnite
+poshgit
 postgresql13
 postman
 previousfilesrecovery

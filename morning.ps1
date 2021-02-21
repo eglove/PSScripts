@@ -89,6 +89,9 @@ function cleanup
 
     if($?)
     {
+        Add-Content -Path .\theGraph.txt 'The GitHub contribution graph is a lie.'
+        git add .
+        git commit -m $commitMessage.ToString()
         git push
     }
 }

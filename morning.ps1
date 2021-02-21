@@ -78,6 +78,7 @@ function cleanup
     Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
 
     # Update this repo (Ex. to update installedChocoPackages
+    Add-Content -Path .\theGraph.txt 'The GitHub contribution graph is a lie.'
     Set-Location $PSScriptRoot
     $commitMessage = [System.Text.StringBuilder]::new()
     $commitMessage.Append('Automatic update: ');
@@ -86,14 +87,7 @@ function cleanup
 
     git add .
     git commit -m $commitMessage.ToString()
-
-    if($?)
-    {
-        Add-Content -Path .\theGraph.txt 'The GitHub contribution graph is a lie.'
-        git add .
-        git commit -m $commitMessage.ToString()
-        git push
-    }
+    git push
 }
 
 function openLinksArray($links)

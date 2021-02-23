@@ -1,3 +1,2 @@
-posh-git
 PowerShellGet
 PSReadLine

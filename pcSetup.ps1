@@ -132,7 +132,6 @@ function copySettings
     Copy-Item '/PSScripts/settingsBackup/.settings' '~/AppData/Local/Jetbrains/Toolbox/.settings' -Force
     Copy-Item '/PSScripts/settingsBackup/.settings.json' '~/AppData/Local/Jetbrains/Toolbox/.settings' -Force
     Copy-Item '/PSScripts/settingsBackup/config.yaml' '~/AppData/Roaming/terminus/config.yaml' -Force
-    Copy-Item '/PSScripts/settingsBackup/phrases.pxp' '~/Google Drive/PhraseExpress/phrases.pxp' -Force
 }
 
 function cleanup

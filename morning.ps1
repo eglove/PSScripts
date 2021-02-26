@@ -22,7 +22,6 @@ $settingsToBackup = @(
 '~/AppData/Local/JetBrains/Toolbox/.settings',
 '~/AppData/Local/JetBrains/Toolbox/.settings.json',
 '~/AppData/Roaming/terminus/config.yaml',
-'~/Google Drive/PhraseExpress/phrases.pxp'
 );
 
 function update

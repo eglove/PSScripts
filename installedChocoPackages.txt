@@ -74,8 +74,6 @@ obs-studio.install
 ojdkbuild
 origin
 php
-phraseexpress
-phraseexpress.install
 playnite
 postgresql13
 postman

@@ -83,6 +83,7 @@ Silverlight
 skype
 speccy
 steam
+steam-client
 svg-explorer-extension
 teracopy
 terminus

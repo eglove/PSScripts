@@ -21,7 +21,7 @@ $financeLinks = @(
 $settingsToBackup = @(
 '~/AppData/Local/JetBrains/Toolbox/.settings',
 '~/AppData/Local/JetBrains/Toolbox/.settings.json',
-'~/AppData/Roaming/terminus/config.yaml',
+'~/AppData/Roaming/terminus/config.yaml'
 );
 
 function update

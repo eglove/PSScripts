@@ -41,6 +41,7 @@ goggalaxy
 google-backup-and-sync
 GoogleChrome
 greenshot
+heroku-cli
 imagemagick
 imagemagick.app
 itch

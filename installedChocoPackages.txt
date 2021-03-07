@@ -37,6 +37,7 @@ gh
 git
 git.install
 github-desktop
+gitkraken
 goggalaxy
 google-backup-and-sync
 GoogleChrome

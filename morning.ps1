@@ -44,7 +44,7 @@ function update
     Get-InstalledModule | Format-Table Name -HideTableHeaders | Out-File .\installedPSModules.txt
     (Get-Content .\installedPSModules.txt) | Where-Object { $_.trim() -ne "" } | Set-Content .\installedPSModules.txt
 
-    yarn global upgrade
+    yarn global upgrade -A
 
     choco upgrade all -y --skip-virus-check
     choco list -l -r --id-only | Out-File .\installedChocoPackages.txt

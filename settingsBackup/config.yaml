@@ -26,7 +26,7 @@ terminal:
   cursor: beam
   environment: {}
   profile: powershell-core
-  workingDirectory: 'C:\Users\eglove'
+  workingDirectory: 'C:\Users\eglove\Projects'
   alwaysUseWorkingDirectory: true
   autoOpen: false
   searchOptions: {}

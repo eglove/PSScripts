@@ -1,0 +1,57 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:sonarjs/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint/eslint-plugin",
+    "prettier",
+    "sonarjs"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "impliedStrict": true,
+      "classes": true
+    }
+  },
+  "rules": {
+    "arrow-parens": ["error", "as-needed"],
+    "eol-last": ["error", "always"],
+    "indent": ["error", 2],
+    "max-len": "error",
+    "no-console": "error",
+    "no-tabs": "error",
+    "no-trailing-spaces": "error",
+    "prefer-const": ["error", {
+      "destructuring": "all"
+    }],
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "semi": ["error", "always"],
+    "space-before-function-paren": ["error", "never"],
+    "prettier/prettier": [
+      "error",
+      {
+        "arrowParens": "avoid",
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 80,
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}

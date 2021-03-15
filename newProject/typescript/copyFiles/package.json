@@ -1,0 +1,47 @@
+{
+  "name": "NAME",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "pretest": "yarn lint && tsc --noEmit",
+    "lint": "eslint .. --cache --fix --ext .ts, .tsx",
+    "test:jest": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test": "yarn test:jest --",
+    "lint:css": "stylelint '**/*.css'",
+    "audit-dependencies": "audit-ci --config audit-ci.json",
+    "sonar": "sonarqube-verify",
+    "test:sonar": "yarn test && yarn sonar"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/lib/"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
+  },
+  "jest-sonar": {
+    "reportPath": "coverage",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --cache --fix"
+  }
+}

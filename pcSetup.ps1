@@ -101,7 +101,7 @@ function installPackagesModules
 
     displayStep 'Installing Yarn Globals...'
     Start-Process powershell -Wait {
-        yarn global add $yarnGlobals;
+        yarn global add (Get-Content '/PSScripts/installedYarnPackages.txt')
     }
 
     displayStep 'Installing Powershell Modules...'

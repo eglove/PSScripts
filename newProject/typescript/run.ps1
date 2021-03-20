@@ -1,7 +1,6 @@
 . 'C:\PSScripts\newProject\util\gitignore.ps1';
 
-$projectTypeResources = $PSScriptRoot + '\newProject\typescript';
-$copyFiles = $projectTypeResources + '\copyFiles';
+$copyFiles = $PSScriptRoot + '\copyFiles\*';
 
 $dependencies = @('styled-components');
 
@@ -17,14 +16,10 @@ $devDependencies = @(
     'eslint-plugin-sonarjs',
     'husky',
     'jest',
-    'jest-sonar-reporter',
     'lint-staged',
     'prettier',
-    'sonarjs',
-    'sonarqube-scanner',
-    'sonarqube-verify',
     'stylelint',
-    'stylelint-a11y/recommended',
+    'stylelint-a11y',
     'stylelint-config-idiomatic-order',
     'stylelint-config-prettier',
     'stylelint-config-standard',
@@ -35,14 +30,14 @@ $devDependencies = @(
     'typescript'
 );
 
-foreach($item in $copyFiles) {
-    Copy-Item -Recurse $item .
-}
+Copy-Item -Path $copyFiles -Destination . -Recurse
 
 createGitIgnore('jetbrains,node,vscode');
 
 $projectName = Get-Location | Select-Object | ForEach-Object{$_.ProviderPath.Split("\")[-1]}
-((Get-Content -path 'package.json' -Raw) -replace 'NAME', $projectName) | Set-Content -Path 'package.json'
+((Get-Content -path 'package.json' -Raw) -replace 'REPLACE_NAME', $projectName) | Set-Content -Path 'package.json'
 
 yarn add $dependencies;
 yarn add -D $devDependencies
+
+webstorm .

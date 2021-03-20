@@ -1,4 +1,4 @@
-$resourceLocation = $PSScriptRoot + 'newProject/';
+$resourceLocation = $PSScriptRoot + '/newProject/';
 
 $projectTypes = @(
 'typescript'

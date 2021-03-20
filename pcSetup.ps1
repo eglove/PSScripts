@@ -1,7 +1,6 @@
 # Save drive name
 $usbLocationObject = Get-Location
 $usbLocation = $usbLocationObject.toString()
-$yarnGlobals = @('mrm')
 
 # Registry edits
 $advancedSettingsEnable = @('TaskbarSmallIcons', 'TaskbarGlomLevel', 'MMTaskbarEnabled', 'MMTaskbarGlomLevel')

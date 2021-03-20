@@ -28,6 +28,8 @@ else
     $projectType = $args[1];
 }
 
+$createGitHub = Read-Host "Create GitHub Project? (y/n)"
+
 $workspace = '~/Projects';
 
 Set-Location $workspace;
@@ -38,4 +40,14 @@ if ('typescript' -eq $projectType)
 {
     $projectScript = $resourceLocation + $projectType + '/run.ps1';
     Invoke-Expression $projectScript;
+}
+
+if ($createGitHub -eq 'y')
+{
+    git init
+    gh repo create $projectName --confirm --public
+    git add .
+    $initalizeMessage = "Initialize " + $projectType + " project " + $projectName + ".";
+    git commit -m $initalizeMessage
+    git push --set-upstream origin master
 }

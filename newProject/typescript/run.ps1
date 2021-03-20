@@ -41,7 +41,7 @@ foreach($item in $copyFiles) {
 
 createGitIgnore('jetbrains,node,vscode');
 
-$projectName = Get-Location | Select-Object | %{$_.ProviderPath.Split("\")[-1]}
+$projectName = Get-Location | Select-Object | ForEach-Object{$_.ProviderPath.Split("\")[-1]}
 ((Get-Content -path 'package.json' -Raw) -replace 'NAME', $projectName) | Set-Content -Path 'package.json'
 
 yarn add $dependencies;

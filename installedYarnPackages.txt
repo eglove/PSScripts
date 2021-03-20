@@ -1,0 +1,8 @@
+gitignore
+jest
+json-server
+mrm
+nodemon
+parcel-bundler
+ts-node
+typescript

@@ -32,7 +32,7 @@ $devDependencies = @(
 
 Copy-Item -Path $copyFiles -Destination . -Recurse
 
-createGitIgnore('jetbrains,node,vscode');
+createGitIgnore('jetbrains,node,vscode,vim');
 
 $projectName = Get-Location | Select-Object | ForEach-Object{$_.ProviderPath.Split("\")[-1]}
 ((Get-Content -path 'package.json' -Raw) -replace 'REPLACE_NAME', $projectName) | Set-Content -Path 'package.json'

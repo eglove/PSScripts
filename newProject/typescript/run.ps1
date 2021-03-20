@@ -9,7 +9,6 @@ $devDependencies = @(
     '@types/node',
     '@typescript-eslint/eslint-plugin',
     '@typescript-eslint/parser',
-    'audit-ci',
     'eslint',
     'eslint-config-prettier',
     'eslint-plugin-prettier',

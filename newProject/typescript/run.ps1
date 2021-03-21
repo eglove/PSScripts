@@ -12,6 +12,7 @@ $devDependencies = @(
     'eslint',
     'eslint-config-prettier',
     'eslint-plugin-prettier',
+    'eslint-plugin-simple-import-sort',
     'eslint-plugin-sonarjs',
     'husky',
     'jest',

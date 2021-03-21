@@ -61,7 +61,9 @@ megasync
 microsoft-teams
 microsoft-windows-terminal
 minecraft-launcher
+mongodb
 mongodb-compass
+mongodb.install
 mysql
 mysql.workbench
 netfx-4.6.2

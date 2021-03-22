@@ -39,7 +39,7 @@ export const GlobalStyles = createGlobalStyle`
   
   html {
     max-width: 1000px;
-    margin: auto;
+    margin: 1rem;
     background-color: var(--backgroundColor);
     color: var(--fontColor);
     font-family: Raleway, sans-serif;

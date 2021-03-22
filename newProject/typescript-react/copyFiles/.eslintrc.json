@@ -1,6 +1,7 @@
 {
   "extends": [
     "eslint:recommended",
+    "airbnb-typescript",
     "prettier",
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -53,6 +54,8 @@
         "allowTemplateLiterals": true
       }
     ],
+    "react/no-unescaped-entities": "off",
+    "react/react-in-jsx-scope": "off",
     "semi": ["error", "always"],
     "spaced-comment": ["error", "always"],
     "prettier/prettier": [

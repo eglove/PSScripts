@@ -8,7 +8,7 @@ function getHelp()
 {
     Write-Host 'createProject [projectName] [projectType]';
     Write-Host 'Valid Project Types:';
-    Write-Host 'typescript';
+    Write-Host 'TSR: TypeScript-React';
     exit;
 }
 
@@ -36,7 +36,7 @@ Set-Location $workspace;
 mkdir $projectName
 Set-Location $projectName
 
-if ('typescript' -eq $projectType)
+if ('TSR' -eq $projectType)
 {
     $projectScript = $resourceLocation + $projectType + '/run.ps1';
     Invoke-Expression $projectScript;

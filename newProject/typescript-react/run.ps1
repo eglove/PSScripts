@@ -2,16 +2,29 @@
 
 $copyFiles = $PSScriptRoot + '\copyFiles\*';
 
-$dependencies = @('styled-components');
+$dependencies = @(
+    'next',
+    'nprogress',
+    'react',
+    'react-dom',
+    'styled-components',
+    'styled-reset'
+);
 
 $devDependencies = @(
     '@types/jest',
     '@types/node',
+    '@types/nprogress',
+    '@types/react',
     '@typescript-eslint/eslint-plugin',
     '@typescript-eslint/parser',
     'eslint',
+    'eslint-config-airbnb-typescript',
     'eslint-config-prettier',
+    'eslint-plugin-import',
+    'eslint-plugin-jsx-a11y',
     'eslint-plugin-prettier',
+    'eslint-plugin-react-hooks',
     'eslint-plugin-simple-import-sort',
     'eslint-plugin-sonarjs',
     'husky',

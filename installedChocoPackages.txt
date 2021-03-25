@@ -92,6 +92,7 @@ svg-explorer-extension
 teracopy
 terminus
 twitch
+ubisoft-connect
 uplay
 vcredist140
 vcredist2010

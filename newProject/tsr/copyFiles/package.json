@@ -9,7 +9,11 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test": "yarn test:jest --",
-    "lint:css": "stylelint '**/*.css'"
+    "lint:css": "stylelint '**/*.css'",
+    "dev": "next -p 7777",
+    "build": "next build",
+    "start": "next start -p 7777",
+    "server": "nodemon server/src/index.ts"
   },
   "browserslist": {
     "production": [

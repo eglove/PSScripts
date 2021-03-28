@@ -3,6 +3,9 @@
 $copyFiles = $PSScriptRoot + '\copyFiles\*';
 
 $dependencies = @(
+    '@apollo/client',
+    'apollo-server',
+    'graphql',
     'next',
     'nprogress',
     'react',
@@ -16,6 +19,7 @@ $devDependencies = @(
     '@types/node',
     '@types/nprogress',
     '@types/react',
+    '@types/styled-components',
     '@typescript-eslint/eslint-plugin',
     '@typescript-eslint/parser',
     'eslint',
@@ -24,12 +28,14 @@ $devDependencies = @(
     'eslint-plugin-import',
     'eslint-plugin-jsx-a11y',
     'eslint-plugin-prettier',
+    'eslint-plugin-react',
     'eslint-plugin-react-hooks',
     'eslint-plugin-simple-import-sort',
     'eslint-plugin-sonarjs',
     'husky',
     'jest',
     'lint-staged',
+    'nodemon',
     'prettier',
     'stylelint',
     'stylelint-a11y',

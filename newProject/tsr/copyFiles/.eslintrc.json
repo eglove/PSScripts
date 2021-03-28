@@ -28,13 +28,16 @@
     }
   },
   "rules": {
+    "@typescript-eslint/explicit-function-return-type": ["error"],
     "@typescript-eslint/no-explicit-any": ["warn"],
     "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/typedef": ["error"],
     "arrow-body-style": ["error", "as-needed"],
     "arrow-parens": ["error", "as-needed"],
     "eol-last": ["error", "always"],
     "indent": ["error", 2, {"SwitchCase": 1}],
     "import/order": "error",
+    "import/prefer-default-export": "off",
     "max-len": "error",
     "no-console": "warn",
     "no-duplicate-imports": "error",

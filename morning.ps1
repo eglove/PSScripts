@@ -92,15 +92,18 @@ function backupSettings
 
 function cleanup
 {
+    Get-Process Wabbajack | Stop-Process
+
     # Delete old versions of Wabbajack
     Set-Location $wabbaJackLocation
+
+    Remove-Item logs -Recurse -Force
+
     $numberOfVersions = (Get-ChildItem -Path . -Directory).Count
     if ($numberOfVersions -gt 1)
     {
         Get-ChildItem . -Directory | Sort-Object LastWriteTime | Select-Object -First ($numberOfVersions - 1) | Remove-Item -Recurse -Force
     }
-
-    Get-Process Wabbajack | Stop-Process
 
     # Delete desktop shortcuts
     Remove-Item "C:\Users\*\Desktop\*.lnk" -Force

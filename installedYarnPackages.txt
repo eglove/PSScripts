@@ -1,3 +1,4 @@
+create-keystone-next-app
 gitignore
 jest
 json-server
@@ -6,3 +7,4 @@ nodemon
 parcel-bundler
 ts-node
 typescript
+yo

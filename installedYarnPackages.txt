@@ -1,3 +1,4 @@
+System.Object[]
 create-keystone-next-app
 gitignore
 jest

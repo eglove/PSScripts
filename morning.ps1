@@ -108,6 +108,10 @@ function cleanup
     # Delete desktop shortcuts
     Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
 
+    # Stop Docker containers and remove images
+    docker stop $(docker ps -a -q)
+    docker rmi $(docker images -a -q)
+
     # Update this repo (Ex. to update installedChocoPackages
     Set-Location $PSScriptRoot
     $commitMessage = [System.Text.StringBuilder]::new()

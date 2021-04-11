@@ -109,9 +109,7 @@ function cleanup
     Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
 
     # Stop Docker containers and remove images
-    docker stop $(docker ps -a -q)
-    docker rm $(docker ps -a -q) -f
-    docker rmi $(docker images -a -q) -f
+    Start-Process 'cDocker.ps1' -Wait
 
     # Update this repo (Ex. to update installedChocoPackages
     Set-Location $PSScriptRoot

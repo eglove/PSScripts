@@ -55,6 +55,7 @@ KB3033929
 KB3035131
 KB3063858
 KB3118401
+kubernetes-cli
 laragon
 laragon.install
 megasync

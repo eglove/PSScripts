@@ -85,6 +85,7 @@ postman
 python3
 qbittorrent
 Silverlight
+skaffold
 skype
 speccy
 steam

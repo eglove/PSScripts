@@ -9,4 +9,5 @@ nodemon
 parcel-bundler
 ts-node
 typescript
+vercel
 yo

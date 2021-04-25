@@ -7,6 +7,7 @@ json-server
 mrm
 nodemon
 parcel-bundler
+prettier
 ts-node
 typescript
 vercel

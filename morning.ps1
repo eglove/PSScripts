@@ -146,7 +146,6 @@ function morningRoutine
 {
     update
     openLinks
-    Start-Process 'privateFunctions/openExtraLinks.ps1' -Wait
     backupSettings
     cleanup
     Set-Location ~/

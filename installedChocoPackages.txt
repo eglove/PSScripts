@@ -1,6 +1,7 @@
 0ad
 7zip
 7zip.install
+AdoptOpenJDKjre
 amazon-music
 anaconda3
 anki
@@ -40,6 +41,7 @@ github-desktop
 goggalaxy
 google-backup-and-sync
 GoogleChrome
+graphviz
 greenshot
 heroku-cli
 imagemagick
@@ -47,6 +49,7 @@ imagemagick.app
 itch
 jbs
 jetbrainstoolbox
+jre8
 KB2533623
 KB2919355
 KB2919442

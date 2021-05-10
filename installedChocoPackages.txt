@@ -67,6 +67,7 @@ microsoft-windows-terminal
 minecraft-launcher
 mongodb
 mongodb-compass
+mongodb-shell
 mongodb.install
 mysql
 mysql.workbench
@@ -75,6 +76,7 @@ nodejs
 nodejs.install
 notepadplusplus
 notepadplusplus.install
+notion
 nvidia-profile-inspector
 obs-studio
 obs-studio.install

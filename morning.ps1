@@ -16,7 +16,12 @@ $financeLinks = @(
 'https://www.lightstream.com/account',
 'https://www.wealthfront.com/',
 'https://www.lendingclub.com/',
-'https://app.youneedabudget.com/'
+'https://app.youneedabudget.com/',
+'https://jobs.spectrum.com/search-jobs/Developer/St%20Louis%2C%20MO/4673-14710/1/4/6252001-4398678-4407066/38x62727/-90x19789/50/2',
+'https://careers-perficient.icims.com/jobs/search?ics_geolocation=St.%20Louis%2C%20Missouri%2C%20US&ics_keywords=Developer',
+'https://itcareers.apexsystems.com/ListJobs?Remote=Yes',
+'https://getconcero.com/job-listings/#!/',
+'https://us59.dayforcehcm.com/CandidatePortal/en-US/unigroup?q=Developer&l=1'
 );
 $settingsToBackup = @(
 '~/AppData/Local/JetBrains/Toolbox/.settings',

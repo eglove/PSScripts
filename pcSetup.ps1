@@ -43,15 +43,6 @@ function setStorageSenseSettings
     }
 }
 
-function windowsUpdate
-{
-    displayStep('Updating Windows and cleaning up...')
-    # Update windows
-    Install-Module PSWindowsUpdate
-    Add-WUServiceManager -MicrosoftUpdate
-    Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot
-}
-
 function chocolateyProInstall
 {
     displayStep 'Installing Chocolatey...'
@@ -147,6 +138,11 @@ function cleanup
     # Cache git credentials
     git config --global credential.helper wincred
 
+    displayStep('Updating Windows and cleaning up...')
+    # Update windows
+    Get-WindowsUpdate
+    Install-WindowsUpdate -AcceptAll
+
     # Remove desktop shortcuts , WARNING do not target all files, this breaks the recycle bin shortcut
     # and desktop icons will permanently not show.
     Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
@@ -159,7 +155,6 @@ function cleanup
     Remove-Item $usbLocation'script.ps1'
 }
 
-windowsUpdate
 chocolateyProInstall
 installWslUbuntu
 clonePsScriptsSetEnv

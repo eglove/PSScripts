@@ -37,7 +37,12 @@ function update
 
     Write-Host 'Running Windows Update...'
     Set-Location $PSScriptRoot
-    Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot
+    Get-WindowsUpdate -WindowsUpdate
+    Install-WindowsUpdate -AutoReboot -AcceptAll -WindowsUpdate
+
+    Write-Host 'Running Microsoft Update...'
+    Get-WindowsUpdate -MicrosoftUpdate
+    Install-WindowsUpdate -AutoReboot -AcceptAll -MicrosoftUpdate
 
     Write-Host 'Running PS Module Update...'
     Update-Module -AcceptLicense -Confirm

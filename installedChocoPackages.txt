@@ -2,7 +2,6 @@
 7zip
 7zip.install
 AdoptOpenJDKjre
-amazon-music
 anaconda3
 anki
 autoclicker
@@ -41,7 +40,6 @@ github-desktop
 goggalaxy
 google-backup-and-sync
 GoogleChrome
-graphviz
 greenshot
 heroku-cli
 imagemagick
@@ -90,15 +88,7 @@ postman
 python3
 qbittorrent
 ruby
-selenium
-selenium-all-drivers
-selenium-chrome-driver
-selenium-edge-driver
-selenium-gecko-driver
-selenium-ie-driver
-selenium-opera-driver
 Silverlight
-skaffold
 skype
 speccy
 steam

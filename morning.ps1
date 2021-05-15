@@ -2,10 +2,15 @@
 
 $morningLinks = @(
 'https://hangouts.google.com/?authuser=1',
-'https://mail.google.com/mail/u/1/#inbox'
+'https://mail.google.com/mail/u/1/#inbox',
+'https://jobs.spectrum.com/search-jobs/Developer/St%20Louis%2C%20MO/4673-14710/1/4/6252001-4398678-4407066/38x62727/-90x19789/50/2',
+'https://careers-perficient.icims.com/jobs/search?ics_geolocation=St.%20Louis%2C%20Missouri%2C%20US&ics_keywords=Developer',
+'https://itcareers.apexsystems.com/ListJobs?Remote=Yes',
+'https://getconcero.com/job-listings/#!/',
+'https://us59.dayforcehcm.com/CandidatePortal/en-US/unigroup?q=Developer&l=1'
 );
 $financeLinks = @(
-'https://www.glassdoor.com/knowyourworth/dashboard.htm',
+'https://www.payscale.com/login.aspx',
 'https://www.paypal.com/',
 'https://smile.amazon.com/gp/css/order-history?ie=UTF8&ref_=nav_youraccount_orders&',
 'https://docs.google.com/spreadsheets/d/1NRRzw3Ok7my5xRIG6AKKoBadOK3Sca4ZoMg2vhKHxoA/edit',
@@ -16,12 +21,7 @@ $financeLinks = @(
 'https://www.lightstream.com/account',
 'https://www.wealthfront.com/',
 'https://www.lendingclub.com/',
-'https://app.youneedabudget.com/',
-'https://jobs.spectrum.com/search-jobs/Developer/St%20Louis%2C%20MO/4673-14710/1/4/6252001-4398678-4407066/38x62727/-90x19789/50/2',
-'https://careers-perficient.icims.com/jobs/search?ics_geolocation=St.%20Louis%2C%20Missouri%2C%20US&ics_keywords=Developer',
-'https://itcareers.apexsystems.com/ListJobs?Remote=Yes',
-'https://getconcero.com/job-listings/#!/',
-'https://us59.dayforcehcm.com/CandidatePortal/en-US/unigroup?q=Developer&l=1'
+'https://app.youneedabudget.com/'
 );
 $settingsToBackup = @(
 '~/AppData/Local/JetBrains/Toolbox/.settings',

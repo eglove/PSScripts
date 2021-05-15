@@ -45,7 +45,7 @@ function setStorageSenseSettings
 
 function windowsUpdate
 {
-    displayStep('Updating Windows...')
+    displayStep('Updating Windows and cleaning up...')
     # Update windows
     Install-Module PSWindowsUpdate
     Add-WUServiceManager -MicrosoftUpdate
@@ -144,8 +144,6 @@ function copySettings
 
 function cleanup
 {
-    displayStep('Cleaning up...');
-
     # Cache git credentials
     git config --global credential.helper wincred
 

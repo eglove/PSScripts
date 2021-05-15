@@ -43,6 +43,14 @@ function setStorageSenseSettings
     }
 }
 
+function initialWidowsUpdate
+{
+    displayStep 'Running initial Windows Update...'
+    Install-Module PSWindowsUpdate
+    Add-WUServiceManager -MicrosoftUpdate
+    Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot -Wait
+}
+
 function chocolateyProInstall
 {
     displayStep 'Installing Chocolatey...'
@@ -74,7 +82,7 @@ function clonePsScriptsSetEnv
 {
     displayStep 'Cloning Powershell Scripts...'
     Set-Location C:\
-    choco install gh
+    choco install git gh
     Start-Process powershell -Wait {
         gh auth login;
         gh repo clone eglove/PSScripts;
@@ -155,6 +163,7 @@ function cleanup
     Remove-Item $usbLocation'script.ps1'
 }
 
+initialWidowsUpdate
 chocolateyProInstall
 installWslUbuntu
 clonePsScriptsSetEnv

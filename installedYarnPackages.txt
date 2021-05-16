@@ -1,5 +1,7 @@
 angular/cli
 vue/cli
+create-next-app
+jest
 mrm
 prettier
 typescript

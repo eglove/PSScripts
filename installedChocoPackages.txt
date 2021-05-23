@@ -91,6 +91,7 @@ qbittorrent
 ruby
 Silverlight
 skype
+snyk
 speccy
 steam
 steam-client

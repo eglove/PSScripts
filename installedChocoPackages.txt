@@ -17,6 +17,7 @@ chocolatey-visualstudio.extension
 chocolatey-windowsupdate.extension
 chocolatey.extension
 composer
+Cygwin
 discord
 discord.install
 docker-cli

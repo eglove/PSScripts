@@ -63,6 +63,8 @@ laragon.install
 megasync
 microsoft-teams
 microsoft-windows-terminal
+miktex
+miktex.install
 minecraft-launcher
 mongodb
 mongodb-compass
@@ -99,6 +101,8 @@ steam-client
 svg-explorer-extension
 teracopy
 terminus
+texstudio
+texstudio.install
 twitch
 ubisoft-connect
 uplay

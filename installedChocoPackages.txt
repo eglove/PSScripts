@@ -94,6 +94,7 @@ powershell-core
 python3
 qbittorrent
 ruby
+rust
 Silverlight
 skype
 snyk

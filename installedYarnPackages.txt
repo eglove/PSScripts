@@ -2,6 +2,7 @@ angular/cli
 sanity/cli
 vue/cli
 create-next-app
+expo-cli
 jest
 mrm
 prettier

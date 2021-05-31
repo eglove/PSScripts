@@ -1,6 +1,7 @@
 ﻿$wabbaJackLocation = '\Wabbajack';
 
 $morningLinks = @(
+'https://habitica.com/',
 'https://hangouts.google.com/?authuser=1',
 'https://mail.google.com/mail/u/1/#inbox',
 'https://jobs.spectrum.com/search-jobs/Developer/St%20Louis%2C%20MO/4673-14710/1/4/6252001-4398678-4407066/38x62727/-90x19789/50/2',

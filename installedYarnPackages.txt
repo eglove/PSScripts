@@ -6,5 +6,6 @@ expo-cli
 jest
 mrm
 prettier
+serverless
 typescript
 yo

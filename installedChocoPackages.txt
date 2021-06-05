@@ -1,5 +1,6 @@
 A license was found for a licensed version of Chocolatey, but is invalid:
  Expiration Date : 5/29/2021 12:00:00 AM
+[Pending] Removing incomplete install for 'geforce-game-ready-driver'
 0ad
 7zip
 7zip.install
@@ -26,6 +27,7 @@ docker-cli
 docker-desktop
 DotNet4.5
 DotNet4.5.2
+dotnet4.7.1
 dotnet4.7.2
 dotnetcore-runtime
 dotnetcore-runtime.install
@@ -33,9 +35,9 @@ dotnetcore-sdk
 dotnetfx
 epicgameslauncher
 Everything
+flutter
 foxitreader
 geforce-experience
-geforce-game-ready-driver
 gh
 git
 git.install
@@ -99,6 +101,7 @@ rust
 Silverlight
 skype
 snyk
+sourcetree
 speccy
 steam
 steam-client

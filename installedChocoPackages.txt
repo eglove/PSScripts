@@ -1,6 +1,5 @@
 A license was found for a licensed version of Chocolatey, but is invalid:
  Expiration Date : 5/29/2021 12:00:00 AM
-[Pending] Removing incomplete install for 'geforce-game-ready-driver'
 0ad
 7zip
 7zip.install

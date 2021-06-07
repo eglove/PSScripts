@@ -1,5 +1,6 @@
 A license was found for a licensed version of Chocolatey, but is invalid:
  Expiration Date : 5/29/2021 12:00:00 AM
+[Pending] Removing incomplete install for 'WhatsApp'
 0ad
 7zip
 7zip.install
@@ -8,6 +9,7 @@ anaconda3
 anki
 autoclicker
 autohotkey.portable
+awscli
 balabolka
 checksum
 chocolatey
@@ -24,10 +26,12 @@ discord
 discord.install
 docker-cli
 docker-desktop
+dotnet-5.0-desktopruntime
 DotNet4.5
 DotNet4.5.2
 dotnet4.7.1
 dotnet4.7.2
+dotnet5-desktop-runtime
 dotnetcore-runtime
 dotnetcore-runtime.install
 dotnetcore-sdk
@@ -125,7 +129,6 @@ vlc
 vortex
 vscode
 vscode.install
-WhatsApp
 windowgrid
 wsl
 wsl-ubuntu-2004

@@ -4,15 +4,6 @@ $morningLinks = @(
 'https://habitica.com/',
 'https://hangouts.google.com/?authuser=1',
 'https://mail.google.com/mail/u/1/#inbox',
-'https://jobs.spectrum.com/search-jobs/Developer/St%20Louis%2C%20MO/4673-14710/1/4/6252001-4398678-4407066/38x62727/-90x19789/50/2',
-'https://careers-perficient.icims.com/jobs/search?ics_geolocation=St.%20Louis%2C%20Missouri%2C%20US&ics_keywords=Developer',
-'https://itcareers.apexsystems.com/ListJobs?Remote=Yes',
-'https://getconcero.com/job-listings/#!/',
-'https://us59.dayforcehcm.com/CandidatePortal/en-US/unigroup?q=Developer&l=1',
-'https://www.accenture.com/us-en/careers/jobsearch?jk=MO%20-%20St.%20Louis&sb=1&pg=1&is_rj=0',
-'https://www.accenture.com/us-en/careers/jobsearch?jk=developer&sb=1&pg=1&is_rj=0',
-'https://app.experfy.com/expert/#/projects/browse',
-'https://startup.jobs/?toggle%5Bremote%5D=true&refinementList%5Bcommitment%5D%5B0%5D=Full-Time&refinementList%5Bcommitment%5D%5B1%5D=Contractor'
 );
 $financeLinks = @(
 'https://www.payscale.com/login.aspx',

@@ -3,7 +3,7 @@
 $morningLinks = @(
 'https://habitica.com/',
 'https://hangouts.google.com/?authuser=1',
-'https://mail.google.com/mail/u/1/#inbox',
+'https://mail.google.com/mail/u/1/#inbox'
 );
 $financeLinks = @(
 'https://www.payscale.com/login.aspx',

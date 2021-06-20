@@ -1,6 +1,8 @@
 angular/cli
+aws-amplify/cli
 sanity/cli
 vue/cli
+aws-cdk
 create-next-app
 expo-cli
 jest

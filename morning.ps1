@@ -1,4 +1,5 @@
 ﻿$wabbaJackLocation = '\Wabbajack';
+$ankiBackupLocation = 'C:\Users\eglove\AppData\Roaming\Anki2';
 
 $morningLinks = @(
 'https://habitica.com/',
@@ -91,6 +92,17 @@ function backupSettings
     (Get-Content './backedUpSettings.txt') | Where-Object { $_.trim() -ne "" } | Set-Content './backedUpSettings.txt'
 }
 
+function updateAnkiBackup
+{
+    Set-Location $ankiBackupLocation
+    git add .
+    git commit -m "Anki Automatic Backup"
+    if ($?)
+    {
+        git push
+    }
+}
+
 function cleanup
 {
     Get-Process Wabbajack | Stop-Process
@@ -148,6 +160,7 @@ function morningRoutine
     update
     openLinks
     backupSettings
+    updateAnkiBackup
     cleanup
     Set-Location ~/
 }

@@ -1,5 +1,4 @@
 angular/cli
-aws-amplify/cli
 sanity/cli
 vue/cli
 aws-cdk

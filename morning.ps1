@@ -17,7 +17,7 @@ $financeLinks = @(
 'https://www.lightstream.com/account',
 'https://www.wealthfront.com/',
 'https://www.lendingclub.com/',
-'https://app.youneedabudget.com/'
+'https://app.monarchmoney.com/dashboard'
 );
 $settingsToBackup = @(
 '~/AppData/Local/JetBrains/Toolbox/.settings',

@@ -1,10 +1,12 @@
 $wabbaJackLocation = '\Wabbajack';
 
+Write-Host 'Updating Wabbajack...'
+
 # Update Wabbajack
 Set-Location $wabbaJackLocation
 Start-Process Wabbajack
 
-Start-Sleep 60
+Start-Sleep 30
 
 Get-Process Wabbajack | Stop-Process
 

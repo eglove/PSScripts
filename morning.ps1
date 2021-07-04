@@ -28,9 +28,11 @@ foreach ($script in $nonRestartScripts) {
     Start-Process $scriptRoot$script'.ps1'
 }
 
-Remove-Item logs -Recurse -Force
+Set-Location '\PSScripts'
+
+if (Test-Path logs)
+{
+    Remove-Item logs -Recurse -Force
+}
 Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
 Start-Process '\Program Files\Anki\anki.exe'
-
-# Prevent exit when auto running
-Read-Host -Prompt "Press Enter to exit"

@@ -42,6 +42,7 @@ gh
 git
 git.install
 github-desktop
+gitui
 goggalaxy
 google-backup-and-sync
 GoogleChrome
@@ -107,7 +108,6 @@ steam
 steam-client
 svg-explorer-extension
 teracopy
-terminus
 texstudio
 texstudio.install
 twitch

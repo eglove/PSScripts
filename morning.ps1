@@ -20,6 +20,8 @@ $nonRestartScripts = @(
 'openLinks'
 )
 
+Set-Location '\PSScripts'
+
 foreach ($script in $restartScripts) {
     Start-Process $scriptRoot$script'.ps1' -Wait
 }
@@ -27,8 +29,6 @@ foreach ($script in $restartScripts) {
 foreach ($script in $nonRestartScripts) {
     Start-Process $scriptRoot$script'.ps1'
 }
-
-Set-Location '\PSScripts'
 
 if (Test-Path logs)
 {

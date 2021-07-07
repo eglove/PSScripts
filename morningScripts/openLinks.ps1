@@ -36,3 +36,5 @@ function openLinks
 
     openLinksArray($morningLinks)
 }
+
+openLinks

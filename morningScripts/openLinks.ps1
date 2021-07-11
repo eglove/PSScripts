@@ -8,7 +8,7 @@ $financeLinks = @(
 'https://www.paypal.com/',
 'https://smile.amazon.com/gp/css/order-history?ie=UTF8&ref_=nav_youraccount_orders&',
 'https://docs.google.com/spreadsheets/d/1NRRzw3Ok7my5xRIG6AKKoBadOK3Sca4ZoMg2vhKHxoA/edit',
-'https://thevillagesgg.securecafe.com/residentservices/villages-at-general-grant/payments.aspx#tab_MakePayments',
+'https://themagnolia.residentportal.com/resident_portal',
 'https://www.ameren.com/',
 'https://www.chase.com/',
 'https://www.usaa.com/inet/ent_logon/Logon?redirectjsp=true',

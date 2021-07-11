@@ -10,6 +10,8 @@ Start-Sleep 60
 
 Get-Process Wabbajack | Stop-Process
 
+Remove-Item -Recurse -Force logs
+
 $numberOfVersions = (Get-ChildItem -Path . -Directory).Count
 if ($numberOfVersions -gt 1)
 {
